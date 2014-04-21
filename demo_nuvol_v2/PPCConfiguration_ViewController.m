@@ -10,8 +10,8 @@
 #import "PPCCommon_Methods.h"
 
 @interface PPCConfiguration_ViewController ()
-
 @end
+
 @implementation PPCConfiguration_ViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -27,6 +27,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    _dismiss_button.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    _dismiss_button.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -36,8 +38,8 @@
 }
 
 - (IBAction)logoutButton:(id)sender {
-    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"",@"",@"", nil] forKeys:[NSArray arrayWithObjects: @"user_id", @"token",@"SID", nil]];
     NSString *error = nil;
+    NSDictionary *plistDict = [NSDictionary dictionaryWithObjects: [NSArray arrayWithObjects:@"",@"",@"", nil] forKeys:[NSArray arrayWithObjects: @"user_id", @"token",@"SID", nil]];
     NSData *plistData = [NSPropertyListSerialization dataFromPropertyList:plistDict format:NSPropertyListXMLFormat_v1_0 errorDescription:&error];
     if(plistData)
     {

@@ -45,23 +45,12 @@ NSDictionary *dictRoot;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     titles = [[NSMutableArray alloc] initWithObjects:@"Vacaciones",@"Permiso", @"Falta",@"Incapacidad",@"Permiso Especial", nil];
-
-
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    NSUserDefaults *defaults =  [NSUserDefaults standardUserDefaults];
-    if (defaults){
-        plistPath = [defaults objectForKey:@"plistPath"];
-    }
+    plistPath = [PPCCommon_Methods getPlistPath];
     dictRoot = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-    loading = [[UIView alloc] initWithFrame:CGRectMake(80, 166, 160, 160)];
-    loading.opaque = NO;
-    //loading.backgroundColor = [self colorFromHexString:@"#000000" andAlpha:YES];
-    UIActivityIndicatorView *spinning = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinning.frame = CGRectMake(61.5, 61.5, 37, 37);
-    [spinning startAnimating];
-    [loading addSubview:spinning];
+    loading = [PPCCommon_Methods generateLoadingView:CGRectMake(80, 166, 160, 160) andIndicatorDimensions:CGRectMake(61.5, 61.5, 37, 37) andAlpha:NO];
     [self.view addSubview:loading];
     [iOSRequest generalRequest:[dictRoot objectForKey:@"SID"] andUser:[dictRoot objectForKey:@"user_id"] andToken:[dictRoot objectForKey:@"token"] andAction:@"empleado_action_datatable_registros" andController:@"Asistencia_Controller" andParams:@"" onCompletion:^(NSDictionary *session){
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -106,31 +95,19 @@ NSDictionary *dictRoot;
     return [vacationArray count]*2-1;
 }
 
-- (UIColor *)colorFromHexString:(NSString *)hexString andAlpha: (BOOL) alpha{
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    if(!alpha)
-        return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-    else
-        return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:0.9];
-}
-
 -(void) setLabelDimension: (UILabel *)label andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andWidth: (NSInteger) width andIsBold: (BOOL) condition {
     NSString *str;
     if([key isEqualToString:@"fecha_fin"]){
-        str = @"Fecha Final: ";
+        str = @"Fecha final: ";
         str = [str stringByAppendingString:[auxDict objectForKey:key]];
     }
     else
         if([key isEqualToString:@"fecha_ini"]){
-            str = @"Fecha Inicial: ";
+            str = @"Fecha inicial: ";
             str = [str stringByAppendingString:[auxDict objectForKey:key]];
         }
         else
             str = [auxDict objectForKey:key];
-
     CGFloat punt1 = label.frame.origin.x;
     CGFloat punt2 = label.frame.origin.y;
     CGFloat height = label.frame.size.height;
@@ -141,7 +118,6 @@ NSDictionary *dictRoot;
     label.numberOfLines=2;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     label.frame = CGRectMake(punt1, punt2, width, height);
-
     label.text = str;
     if([[auxDict objectForKey:key] isEqualToString:@"Rechazado"]){
         color = @"#FF0000";
@@ -149,7 +125,7 @@ NSDictionary *dictRoot;
     if([[auxDict objectForKey:key] isEqualToString:@"Autorizado"]){
         color = @"#01DF01";
     }
-    label.textColor = [self colorFromHexString:color andAlpha:NO];
+    label.textColor = [PPCCommon_Methods colorFromHexString:color andAlpha:NO];
     
 }
 
@@ -180,13 +156,13 @@ NSDictionary *dictRoot;
             andIsBold:false];
         [self setLabelDimension:cell.type andDict:auxDict andKey:@"tipo" andTextColor:@"#515967" andWidth: 210  andIsBold:true];
         cell.description.text = [auxDict objectForKey:@"descripcion"];
-        cell.description.textColor = [self colorFromHexString:@"#000000" andAlpha:NO];
+        cell.description.textColor = [PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:NO];
         cell.description.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:13];
         cell.description.textAlignment = NSTextAlignmentLeft;
         [self setLabelDimension:cell.status andDict:auxDict andKey:@"status" andTextColor:@"#FF8000" andWidth: 90 andIsBold:false];
         [cell.layer setMasksToBounds:YES];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [self colorFromHexString:@"#FFFFFF" andAlpha:NO];
+        cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
         return cell;
     }
     else{
@@ -204,7 +180,7 @@ NSDictionary *dictRoot;
                 }
             }
         }
-        cell.backgroundColor = [self colorFromHexString:@"#5EAEEA" andAlpha:NO];
+        cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#5EAEEA" andAlpha:NO];
         return cell;
     }
     
@@ -246,7 +222,6 @@ NSDictionary *dictRoot;
 	CGSize constrainedSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
 	NSString *text = [final_titles objectAtIndex:index];
 	CGRect textSize = [text boundingRectWithSize: constrainedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:[UIFont boldSystemFontOfSize:14.0f]} context:nil];
-    
 	return textSize.size.width + 40.0f; // 20px padding on each side
 }
 

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "V8HorizontalPickerView.h"
+#import "PPCCommon_Methods.h"
+
 @protocol VacationProtocol <NSObject>
 -(void)requestAssitanceView: (NSMutableArray *) types andIndexes: (NSMutableArray *) index_number;
 @end

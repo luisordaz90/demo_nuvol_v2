@@ -19,6 +19,7 @@ NSString *plistPath;
 +(void)downloadImages: (NSString *) imageName andDict: (NSMutableDictionary *) docDict;
 +(BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 +(void)setLabelDimension: (UILabel *)label andWidth: (NSInteger) width andDict: (NSUserDefaults *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size;
++(NSString *) getPlistPath;
 @end
 
 

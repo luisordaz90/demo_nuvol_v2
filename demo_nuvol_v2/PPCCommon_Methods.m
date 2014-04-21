@@ -48,6 +48,10 @@
     return defaultVals;
 }
 
++(NSString *) getPlistPath{
+    return [[self getDefaults] objectForKey:@"plistPath"];
+}
+
 +(void)downloadImages: (NSString *) imageName andDict:(NSMutableDictionary *)docDict{
     NSLog(@"IMAGEN %@",imageName);
     NSString *photoName = imageName;

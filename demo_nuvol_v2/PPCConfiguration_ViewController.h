@@ -11,6 +11,7 @@
     -(void)logout;
 @end
 @interface PPCConfiguration_ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIButton *dismiss_button;
 - (IBAction)logoutButton:(id)sender;
 @property (weak, nonatomic) id<ConfigurationProtocol> delegate;
 @end
