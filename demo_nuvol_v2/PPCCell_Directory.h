@@ -9,15 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PPCCell_Directory : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *nameCard;
-@property (weak, nonatomic) IBOutlet UILabel *jobPosition;
-@property (weak, nonatomic) IBOutlet UILabel *phoneNumber;
-@property (weak, nonatomic) IBOutlet UILabel *email;
 @property (weak, nonatomic) IBOutlet UIImageView *cardImage;
-@property (weak, nonatomic) IBOutlet UITextView *email2;
-@property (weak, nonatomic) IBOutlet UITextView *phoneNumber2;
-
-@property (weak, nonatomic) IBOutlet UITextView *nameCard2;
-@property (weak, nonatomic) IBOutlet UITextView *jobPosition2;
+@property (weak, nonatomic) IBOutlet UITextView *cardName;
+@property (weak, nonatomic) IBOutlet UITextView *jobPosition;
 
 @end

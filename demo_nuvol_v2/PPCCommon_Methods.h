@@ -19,7 +19,7 @@ NSString *plistPath;
 +(void)downloadImages: (NSString *) imageName andDict: (NSMutableDictionary *) docDict;
 +(void)downloadImagesWithArray: (NSArray *) imageArray andDict:(NSMutableDictionary *)docDict;
 +(BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-+(void)setLabelDimension: (UILabel *)label andWidth: (NSInteger) width andDict: (NSUserDefaults *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size;
++(void)setLabelDimension: (UILabel *)label andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size;
 +(void) setTextView: (UITextView *)textView andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition;
 +(NSString *) getPlistPath;
 +(NSString *) getDocumentsPath;

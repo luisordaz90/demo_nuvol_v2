@@ -32,6 +32,7 @@
 		BB4141C41896A53E00D9EAFE /* singleicon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4141BF1896A53E00D9EAFE /* singleicon.png */; };
 		BB4141C51896A53E00D9EAFE /* toolicon.png in Resources */ = {isa = PBXBuildFile; fileRef = BB4141C01896A53E00D9EAFE /* toolicon.png */; };
 		BB4141CA1896A6C500D9EAFE /* PPCLogin_ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4141C81896A6C500D9EAFE /* PPCLogin_ViewController.xib */; };
+		BB44ECAE1905BDD80041FF0B /* 48x48_4.png in Resources */ = {isa = PBXBuildFile; fileRef = BB44ECAD1905BDD80041FF0B /* 48x48_4.png */; };
 		BB4E8B981896B7260094228E /* PPCWelcome_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BB4E8B971896B7260094228E /* PPCWelcome_ViewController.m */; };
 		BB4E8B9C1896B73F0094228E /* Welcome_View.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB4E8B9B1896B73F0094228E /* Welcome_View.xib */; };
 		BB4E8BA31896BBF30094228E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB4E8BA21896BBF30094228E /* QuartzCore.framework */; };
@@ -114,6 +115,7 @@
 		BB4141C61896A6C500D9EAFE /* PPCLogin_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCLogin_ViewController.h; sourceTree = "<group>"; };
 		BB4141C71896A6C500D9EAFE /* PPCLogin_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCLogin_ViewController.m; sourceTree = "<group>"; };
 		BB4141C81896A6C500D9EAFE /* PPCLogin_ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCLogin_ViewController.xib; sourceTree = "<group>"; };
+		BB44ECAD1905BDD80041FF0B /* 48x48_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 48x48_4.png; sourceTree = "<group>"; };
 		BB4E8B961896B7260094228E /* PPCWelcome_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PPCWelcome_ViewController.h; path = ../PPCWelcome_ViewController.h; sourceTree = "<group>"; };
 		BB4E8B971896B7260094228E /* PPCWelcome_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PPCWelcome_ViewController.m; path = ../PPCWelcome_ViewController.m; sourceTree = "<group>"; };
 		BB4E8B9B1896B73F0094228E /* Welcome_View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Welcome_View.xib; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				BBF0A17D18ABC99D00E55E61 /* 24x24_2.png */,
 				BB8EC70A18BEAEA500AD747C /* 24x24_3.png */,
 				BB8EC70B18BEAEA500AD747C /* 24x24_4.png */,
+				BB44ECAD1905BDD80041FF0B /* 48x48_4.png */,
 				BB5C783F18EBE9F900FB9EC4 /* indicator.png */,
 				BB8EC70C18BEAEA500AD747C /* 24x24_5.png */,
 				BB8EC70D18BEAEA500AD747C /* 24x24_6.png */,
@@ -433,6 +436,7 @@
 			files = (
 				BB3215AF18A94D8500814D48 /* rounded_table_cell_bottom@2x.png in Resources */,
 				BBBD039118E9B1D20083DF0F /* PPCVacation_Cell.xib in Resources */,
+				BB44ECAE1905BDD80041FF0B /* 48x48_4.png in Resources */,
 				BBB8C9DD18BBD31700DE965D /* PPCVacation_View.xib in Resources */,
 				BBE424C218FC5700006D07AD /* PPCDetail_View.xib in Resources */,
 				BB50F96C18BA4F5B00D112C4 /* TabBarSelectedBg.png in Resources */,

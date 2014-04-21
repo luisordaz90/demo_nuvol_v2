@@ -36,6 +36,7 @@ UIView *loading;
     _backButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     _backButton.layer.sublayerTransform = CATransform3DMakeTranslation(1, 0, 0);
     [_backButton addTarget:self action:@selector(changeBackground:) forControlEvents:UIControlStateHighlighted];
+    _backButton.hidden = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -57,6 +58,8 @@ UIView *loading;
     _phoneNumber.text = [_personDetails objectForKey:@"tel"];
     [loading removeFromSuperview];
     _viewContainer.hidden = NO;
+    _backButton.hidden = NO;
+
 }
 
 - (void)didReceiveMemoryWarning

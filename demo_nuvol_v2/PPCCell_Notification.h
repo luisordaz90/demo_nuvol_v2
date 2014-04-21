@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PPCCell_Notification : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+
+@property (weak, nonatomic) IBOutlet UITextView *notificationText;
+@property (weak, nonatomic) IBOutlet UILabel *messageNumber;
 
 @end

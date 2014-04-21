@@ -127,9 +127,9 @@ NSString *plistPath;
             }
         }
         NSDictionary *auxDict = [_notifications objectAtIndex: indexPath.row/2];
-        NSLog(@"%@",[auxDict objectForKey:@"texto"]);
-        [self setLabelDimension:cell.messageLabel andDict:auxDict andKey:@"texto" andTextColor:@"#9AB4CB" andIsBold:false];
-        NSLog(@"%lf", cell.messageLabel.frame.size.width);
+        NSString *str_aux = [NSString stringWithFormat:@"Mensaje #%ld", indexPath.row/2+1];
+        [PPCCommon_Methods setLabelDimension:cell.messageNumber andDict:[NSDictionary dictionaryWithObject:str_aux forKey:@"mensaje"] andKey:@"mensaje" andTextColor:@"#000000" andIsBold:NO andSize:14.0];
+        cell.notificationText.text = [auxDict objectForKey:@"texto"];
         [cell.layer setMasksToBounds:YES];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [self colorFromHexString:@"#FFFFFF"];

@@ -37,8 +37,8 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="cardImage" destination="nHs-7Y-pTm" id="UJf-7r-dyO"/>
-                <outlet property="jobPosition2" destination="J8E-kl-R7l" id="Udc-rP-A1H"/>
-                <outlet property="nameCard2" destination="fCh-vi-AFC" id="dFY-ZE-GFX"/>
+                <outlet property="cardName" destination="fCh-vi-AFC" id="tSr-J7-QYy"/>
+                <outlet property="jobPosition" destination="J8E-kl-R7l" id="lqU-U3-qZR"/>
             </connections>
         </tableViewCell>
     </objects>

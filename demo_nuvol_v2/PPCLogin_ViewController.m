@@ -49,9 +49,9 @@ NSString *device_name;
     _buttonLogin.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     _buttonLogin.layer.sublayerTransform = CATransform3DMakeTranslation(1, 0, 0);
     [_buttonLogin addTarget:self action:@selector(changeBackground:) forControlEvents:UIControlStateHighlighted];
-    _imageViewUser.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:NO]CGColor];
+    _imageViewUser.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#4B89D0" andAlpha:NO]CGColor];
     _imageViewUser.layer.borderWidth = 1.0f;
-    _imageViewPassword.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:NO]CGColor];
+    _imageViewPassword.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#4B89D0" andAlpha:NO]CGColor];
     _imageViewPassword.layer.borderWidth = 1.0f;
     _userName.textColor = [UIColor grayColor];
     _password.textColor = [UIColor grayColor];
@@ -81,7 +81,7 @@ NSString *device_name;
 
     CGRect viewFrame = self.buttonLogin.frame;
     // I'm also subtracting a constant kTabBarHeight because my UIScrollView was offset by the UITabBar so really only the portion of the keyboard that is leftover pass the UITabBar is obscuring my UIScrollView.
-    viewFrame.origin.y -= 63;
+    viewFrame.origin.y -= 59;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [self.buttonLogin setFrame:viewFrame];
@@ -92,7 +92,7 @@ NSString *device_name;
 {
     CGRect viewFrame = self.buttonLogin.frame;
     // I'm also subtracting a constant kTabBarHeight because my UIScrollView was offset by the UITabBar so really only the portion of the keyboard that is leftover pass the UITabBar is obscuring my UIScrollView.
-    viewFrame.origin.y += 63;
+    viewFrame.origin.y += 59;
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [self.buttonLogin setFrame:viewFrame];

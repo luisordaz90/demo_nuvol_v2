@@ -110,28 +110,32 @@
     return (textSize.width < textView.bounds.size.width) ? YES : NO;
 }
 
-+(void) setLabelDimension: (UILabel *)label andWidth: (NSInteger) width andDict: (NSUserDefaults *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size {
++(void) setLabelDimension: (UILabel *)label andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size {
     CGFloat punt1 = label.frame.origin.x;
     CGFloat punt2 = label.frame.origin.y;
     CGFloat height = label.frame.size.height;
-    label.frame = CGRectMake(punt1, punt2, width, height);
+    CGSize textSize;
+    label.text =[auxDict objectForKey:key];
+    NSLog(@"ANTES: %f", label.frame.size.width);
     if(size){
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:size];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:size];
+        textSize = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
     }
     else{
-        label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:17];
+        label.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:17];
+        textSize = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
     }
+    NSLog(@"DESP: %f", textSize.width);
+    label.frame = CGRectMake(punt1, punt2, textSize.width, height);
     label.numberOfLines=2;
     label.lineBreakMode = NSLineBreakByWordWrapping;
-    if(![key isEqualToString:@""])
-        label.text = [auxDict objectForKey:key];
-    label.textColor = [PPCCommon_Methods colorFromHexString:color andAlpha:NO];
+    label.textColor = [self colorFromHexString:color andAlpha:NO];
 }
 
 +(void) setTextView: (UITextView *)textView andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition {
     textView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
     textView.text = [auxDict objectForKey:key];
-    textView.textColor = [PPCCommon_Methods colorFromHexString:color andAlpha:NO];
+    textView.textColor = [self colorFromHexString:color andAlpha:NO];
     if(condition)
         [textView setFont:[UIFont boldSystemFontOfSize:13]];
     BOOL sino = [PPCCommon_Methods textView:textView shouldChangeCharactersInRange:NSMakeRange(0, 10) replacementString:[auxDict objectForKey:key]];

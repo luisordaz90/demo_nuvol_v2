@@ -48,7 +48,9 @@
         UIFont *myFont = [UIFont fontWithName:@"Helvetica" size:14];
         CGRect myStringSize =  [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-16.1)/2-12, 24, 24)];
-        imgView.image = [UIImage imageNamed:@"24x24_5.png"];
+        imgView.autoresizesSubviews = NO;
+        imgView.autoresizingMask = 0;
+        imgView.image = [UIImage imageNamed:@"48x48_4.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
         [welcomeTab.titleLabel setFont:[UIFont systemFontOfSize:10]];
