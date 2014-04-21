@@ -204,7 +204,6 @@ NSDictionary *dictRoot;
                     cell.secondTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_puesto"];
                     cell.thirdTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_empresa"];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
                 }
         cell.backgroundColor = [UIColor whiteColor];
         return cell;
