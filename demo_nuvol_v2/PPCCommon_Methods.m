@@ -52,6 +52,18 @@
     return [[self getDefaults] objectForKey:@"plistPath"];
 }
 
++(NSString *) getDocumentsPath{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    return documentsDirectory;
+}
+
++(NSString *) getPathToImage: (NSString *) photoName{
+    NSString *stringAux = photoName;
+    stringAux = [stringAux stringByReplacingOccurrencesOfString:@" " withString:@""];
+    return [[self getDocumentsPath] stringByAppendingPathComponent:[NSString stringWithString:stringAux]];
+}
+
 +(void)downloadImages: (NSString *) imageName andDict:(NSMutableDictionary *)docDict{
     NSLog(@"IMAGEN %@",imageName);
     NSString *photoName = imageName;
@@ -70,6 +82,24 @@
         NSLog(@"NO ENTRO A BAJAR");
 }
 
++(void)downloadImagesWithArray: (NSArray *) imageArray andDict:(NSMutableDictionary *)docDict{
+    for(int i=0; i< [imageArray count]; i++){
+        NSDictionary *auxDict = [imageArray objectAtIndex: i];
+        NSString *photoName = [auxDict objectForKey:@"foto"];
+        photoName = [photoName stringByReplacingOccurrencesOfString:@" " withString:@"%20"];
+        NSString *aux = [photoName stringByReplacingOccurrencesOfString:@"%20" withString:@""];
+        if(![docDict objectForKey:aux]){
+            NSString *imageURL = @"http://demo.people-cloud.com/uploads/personas/";
+            imageURL =[imageURL stringByAppendingString:photoName];
+            UIImage *image = [[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]]];
+            if(image != NULL)
+            {
+                NSData *imageData = UIImagePNGRepresentation(image);
+                [imageData writeToFile:  [[PPCCommon_Methods getPath:0] stringByAppendingPathComponent:[NSString stringWithString:aux]] atomically:YES];
+            }
+        }
+    }
+}
 
 +(BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -96,6 +126,19 @@
     if(![key isEqualToString:@""])
         label.text = [auxDict objectForKey:key];
     label.textColor = [PPCCommon_Methods colorFromHexString:color andAlpha:NO];
+}
+
++(void) setTextView: (UITextView *)textView andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition {
+    textView.font = [UIFont fontWithName:@"HelveticaNeue" size:14];
+    textView.text = [auxDict objectForKey:key];
+    textView.textColor = [PPCCommon_Methods colorFromHexString:color andAlpha:NO];
+    if(condition)
+        [textView setFont:[UIFont boldSystemFontOfSize:13]];
+    BOOL sino = [PPCCommon_Methods textView:textView shouldChangeCharactersInRange:NSMakeRange(0, 10) replacementString:[auxDict objectForKey:key]];
+    NSLog(sino ? @"YES":@"NO");
+    textView.editable = NO;
+    textView.dataDetectorTypes = UIDataDetectorTypeAll;
+    textView.scrollEnabled = NO;
 }
 
 @end

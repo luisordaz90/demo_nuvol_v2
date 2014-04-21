@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "iOSRequest.h"
 #import "PPCDetail_View.h"
+#import "PPCCommon_Methods.h"
+
 @protocol DirectoryProtocol <NSObject>
     -(void)requestPersonDetail: (NSDictionary *) personDetails;
 @end

@@ -35,7 +35,6 @@ NSDictionary *dictRoot;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -43,7 +42,6 @@ NSDictionary *dictRoot;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     titles = [[NSMutableArray alloc] initWithObjects:@"Vacaciones",@"Permiso", @"Falta",@"Incapacidad",@"Permiso Especial", nil];
 }
 
@@ -85,14 +83,21 @@ NSDictionary *dictRoot;
     // Dispose of any resources that can be recreated.
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1; // in your case, there are 3 cells
+- (IBAction)addLayOffRequest:(id)sender {
+    if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
+    {
+        [self.delegate requestAssitanceView:final_titles andIndexes:index_number];
+    }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:    (NSInteger)section
-{
-    return [vacationArray count]*2-1;
+-(void)addRequest{
+    [requestDialog removeFromSuperview];
+    requestDialog = nil;
+    _requestButton.userInteractionEnabled = YES;
+}
+
+- (void)resignResponder{
+    [textDescription resignFirstResponder];
 }
 
 -(void) setLabelDimension: (UILabel *)label andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andWidth: (NSInteger) width andIsBold: (BOOL) condition {
@@ -129,13 +134,30 @@ NSDictionary *dictRoot;
     
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:    (NSInteger)section
+{
+    return [vacationArray count]*2-1;
+}
+
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row % 2 ==0)
+        return 120;
+    else
+        return 3;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
     if(indexPath.row % 2 == 0){
         PPCVacation_Cell *cell = (PPCVacation_Cell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-        
         if (cell == nil)
         {
             NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCVacation_Cell" owner:self options:nil];
@@ -149,7 +171,6 @@ NSDictionary *dictRoot;
                 }
             }
         }
-        
         NSDictionary *auxDict = [vacationArray objectAtIndex: indexPath.row/2];
         [self setLabelDimension:cell.initialDate andDict:auxDict andKey:@"fecha_ini" andTextColor:@"#000000" andWidth: 80 andIsBold:false];
         [self setLabelDimension:cell.finalDate andDict:auxDict andKey:@"fecha_fin" andTextColor:@"#000000" andWidth: 80
@@ -186,28 +207,6 @@ NSDictionary *dictRoot;
     
 }
 
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row % 2 ==0)
-        return 120;
-    else
-        return 3;
-}
-
-
-- (IBAction)addLayOffRequest:(id)sender {
-    if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
-    {
-        [self.delegate requestAssitanceView:final_titles andIndexes:index_number];
-    }
-}
-
--(void)addRequest{
-    [requestDialog removeFromSuperview];
-    requestDialog = nil;
-    _requestButton.userInteractionEnabled = YES;
-}
-
 #pragma mark - HorizontalPickerView DataSource Methods
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
     return [final_titles count];
@@ -223,13 +222,6 @@ NSDictionary *dictRoot;
 	NSString *text = [final_titles objectAtIndex:index];
 	CGRect textSize = [text boundingRectWithSize: constrainedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:[UIFont boldSystemFontOfSize:14.0f]} context:nil];
 	return textSize.size.width + 40.0f; // 20px padding on each side
-}
-
-- (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
-}
-
-- (void)resignResponder{
-    [textDescription resignFirstResponder];
 }
 
 

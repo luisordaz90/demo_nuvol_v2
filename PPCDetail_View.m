@@ -20,14 +20,12 @@ UIView *loading;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
     [super viewDidLoad];
     _backButton.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
     _backButton.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
@@ -42,7 +40,7 @@ UIView *loading;
 
 -(void)viewWillAppear:(BOOL)animated{
     _viewContainer.hidden = YES;
-    loading = [PPCCommon_Methods generateLoadingView:CGRectMake(0, 0, 320, 366) andIndicatorDimensions:CGRectMake(141.5, 164.5, 37, 37) andAlpha: NO];
+    loading = [PPCCommon_Methods generateLoadingView:CGRectMake(0, 114, 320, 366) andIndicatorDimensions:CGRectMake(141.5, 164.5, 37, 37) andAlpha: NO];
     [self.view addSubview:loading];
 }
 
@@ -64,7 +62,6 @@ UIView *loading;
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)changeBackground:(UIButton *)sender{
