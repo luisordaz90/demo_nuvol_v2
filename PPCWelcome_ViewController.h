@@ -12,7 +12,7 @@
 @protocol WelcomeProtocol <NSObject>
     -(void)addNotificationView: (NSMutableArray *) notifications;
 @end
-@interface PPCWelcome_ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PPCWelcome_ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, WelcomeCellProtocol>
 @property (strong,nonatomic) NSMutableArray *arrayNotifications;
 @property (weak, nonatomic) IBOutlet UITableView *tableVista;
 @property (weak, nonatomic) id<WelcomeProtocol> delegate;

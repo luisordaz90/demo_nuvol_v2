@@ -14,6 +14,10 @@
 		BB20704018B6A41F00C50846 /* 64x64dos.png in Resources */ = {isa = PBXBuildFile; fileRef = BB20703F18B6A41F00C50846 /* 64x64dos.png */; };
 		BB20704318B6C6BF00C50846 /* PPCCustom_Cell_Spacer.m in Sources */ = {isa = PBXBuildFile; fileRef = BB20704218B6C6BF00C50846 /* PPCCustom_Cell_Spacer.m */; };
 		BB20704518B6C6D500C50846 /* PPCCustom_Cell_Spacer.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB20704418B6C6D500C50846 /* PPCCustom_Cell_Spacer.xib */; };
+		BB24F8DD19080ECD00992C29 /* conf_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24F8D919080ECD00992C29 /* conf_image.png */; };
+		BB24F8DE19080ECD00992C29 /* contact_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24F8DA19080ECD00992C29 /* contact_image.png */; };
+		BB24F8DF19080ECD00992C29 /* home_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24F8DB19080ECD00992C29 /* home_image@2x.png */; };
+		BB24F8E019080ECD00992C29 /* payroll_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BB24F8DC19080ECD00992C29 /* payroll_image.png */; };
 		BB3215AF18A94D8500814D48 /* rounded_table_cell_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3215AD18A94D8500814D48 /* rounded_table_cell_bottom@2x.png */; };
 		BB3215B018A94D8500814D48 /* rounded_table_cell_top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BB3215AE18A94D8500814D48 /* rounded_table_cell_top@2x.png */; };
 		BB41419D1896A47900D9EAFE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB41419C1896A47900D9EAFE /* UIKit.framework */; };
@@ -91,6 +95,10 @@
 		BB20704118B6C6BF00C50846 /* PPCCustom_Cell_Spacer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCCustom_Cell_Spacer.h; sourceTree = "<group>"; };
 		BB20704218B6C6BF00C50846 /* PPCCustom_Cell_Spacer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCCustom_Cell_Spacer.m; sourceTree = "<group>"; };
 		BB20704418B6C6D500C50846 /* PPCCustom_Cell_Spacer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PPCCustom_Cell_Spacer.xib; sourceTree = "<group>"; };
+		BB24F8D919080ECD00992C29 /* conf_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = conf_image.png; sourceTree = "<group>"; };
+		BB24F8DA19080ECD00992C29 /* contact_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = contact_image.png; sourceTree = "<group>"; };
+		BB24F8DB19080ECD00992C29 /* home_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_image@2x.png"; sourceTree = "<group>"; };
+		BB24F8DC19080ECD00992C29 /* payroll_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = payroll_image.png; sourceTree = "<group>"; };
 		BB3215AD18A94D8500814D48 /* rounded_table_cell_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rounded_table_cell_bottom@2x.png"; sourceTree = "<group>"; };
 		BB3215AE18A94D8500814D48 /* rounded_table_cell_top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rounded_table_cell_top@2x.png"; sourceTree = "<group>"; };
 		BB4141981896A47900D9EAFE /* demo_nuvol_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = demo_nuvol_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -302,6 +310,10 @@
 				BB8EC70B18BEAEA500AD747C /* 24x24_4.png */,
 				BB44ECAD1905BDD80041FF0B /* 48x48_4.png */,
 				BB5C783F18EBE9F900FB9EC4 /* indicator.png */,
+				BB24F8D919080ECD00992C29 /* conf_image.png */,
+				BB24F8DA19080ECD00992C29 /* contact_image.png */,
+				BB24F8DB19080ECD00992C29 /* home_image@2x.png */,
+				BB24F8DC19080ECD00992C29 /* payroll_image.png */,
 				BB8EC70C18BEAEA500AD747C /* 24x24_5.png */,
 				BB8EC70D18BEAEA500AD747C /* 24x24_6.png */,
 				BBF0A17F18ABCA4500E55E61 /* 64x64.png */,
@@ -475,8 +487,12 @@
 				BB4E8BA51896BCAA0094228E /* infoPlist.plist in Resources */,
 				BB8EC70F18BEAEA500AD747C /* 24x24_4.png in Resources */,
 				BBDA5C8A18C7791B0035E612 /* PPCCell_Directory.xib in Resources */,
+				BB24F8DD19080ECD00992C29 /* conf_image.png in Resources */,
+				BB24F8DE19080ECD00992C29 /* contact_image.png in Resources */,
 				BBEC899418DA51C100A27AF5 /* remove.png in Resources */,
+				BB24F8DF19080ECD00992C29 /* home_image@2x.png in Resources */,
 				BB4E8BA91896BE380094228E /* logo_people.png in Resources */,
+				BB24F8E019080ECD00992C29 /* payroll_image.png in Resources */,
 				BBC9874F1896C5C300C3580B /* Configuration_View.xib in Resources */,
 				BB5C784018EBE9F900FB9EC4 /* indicator.png in Resources */,
 			);

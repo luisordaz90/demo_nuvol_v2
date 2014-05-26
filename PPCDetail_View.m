@@ -46,6 +46,9 @@ UIView *loading;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    [loading removeFromSuperview];
+    _viewContainer.hidden = NO;
+    _backButton.hidden = NO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
     NSString *stringAux = [_personDetails objectForKey:@"foto"];
@@ -56,10 +59,6 @@ UIView *loading;
     _personName.text = [_personDetails objectForKey:@"nombre"];
     _email.text = [_personDetails objectForKey:@"email"];
     _phoneNumber.text = [_personDetails objectForKey:@"tel"];
-    [loading removeFromSuperview];
-    _viewContainer.hidden = NO;
-    _backButton.hidden = NO;
-
 }
 
 - (void)didReceiveMemoryWarning

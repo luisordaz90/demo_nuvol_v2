@@ -109,6 +109,29 @@ NSDictionary *dictRoot;
     imagePathWelcome = @"";
 }
 
+-(void)clickedCell:(NSIndexPath *)pathToCell{
+    [_tableVista selectRowAtIndexPath:pathToCell animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(animateSelectionTimer:) userInfo:pathToCell repeats:NO];
+    
+}
+
+-(void)animateSelectionTimer:(NSTimer *)timer;
+{
+    [self performSelectorOnMainThread:@selector(animateSelection:) withObject:(NSIndexPath *)timer.userInfo waitUntilDone:NO];
+    [timer invalidate];
+}
+
+-(void)animateSelection:(NSIndexPath *)pathToCell
+{
+    if ([_tableVista.delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
+        [_tableVista.delegate tableView:_tableVista willSelectRowAtIndexPath:pathToCell];
+    }
+    
+    if ([_tableVista.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [_tableVista.delegate tableView:_tableVista didSelectRowAtIndexPath:pathToCell];
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -152,58 +175,61 @@ NSDictionary *dictRoot;
                 }
             }
         }
-        if(indexPath.row == 2){
-            cell.custom_imageView.image= [UIImage imageNamed:@"64x64.png"];
-            cell.custom_imageView.image = [cell.custom_imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-            [cell.custom_imageView setTintColor:[UIColor grayColor]];
-            cell.firstTextView.text = @"Días de vacaciones:";
-            cell.secondTextView.text = [NSString stringWithString:[[[PPCCommon_Methods getDefaults]objectForKey:@"dias_correspondientes"] stringValue]];
-            cell.thirdTextView.text = @"Días consumidos: ";
-            cell.thirdTextView.text = [cell.thirdTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults] objectForKey:@"dias_consumidos"] stringValue]]];
-            cell.fourthTextView.text = @"Días restantes: ";
-            cell.fourthTextView.text = [cell.fourthTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults] objectForKey:@"dias_restantes"] stringValue]]];
+        if(indexPath.row == 0){
+            UIView *loading = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
+            loading.layer.cornerRadius = 15;
+            [loading setBackgroundColor:[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO]];
+            if([imagePathWelcome isEqualToString:@""]){
+                UIActivityIndicatorView *spinning = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+                spinning.frame = CGRectMake(8, 8, 64, 64);
+                [spinning startAnimating];
+                [loading addSubview:spinning];
+                [cell.custom_imageView addSubview: loading];
+            }
+            else{
+                UIImageView *new_image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePathWelcome]];
+                new_image.contentMode = UIViewContentModeScaleAspectFit;
+                new_image.frame = CGRectMake(8, 8, 64, 64);
+                [loading addSubview:new_image];
+                [cell.custom_imageView addSubview: loading];
+            }
+            cell.firstTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombrecuenta"];
+            cell.secondTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_puesto"];
+            cell.thirdTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_empresa"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        
         else
-            if (indexPath.row == 4){
-                cell.custom_imageView.image= [UIImage imageNamed:@"64x64_notificacion.png"];
+            if(indexPath.row == 2){
+                cell.custom_imageView.image= [UIImage imageNamed:@"64x64.png"];
                 cell.custom_imageView.image = [cell.custom_imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                 [cell.custom_imageView setTintColor:[UIColor grayColor]];
-                NSString *strAux = @"";
-                if(numberOfNotifications){
-                    if([_arrayNotifications count]>0){
-                        NSDictionary *aux = [_arrayNotifications objectAtIndex:0];
-                        strAux = [[NSString stringWithString:[aux objectForKey:@"texto"]] substringToIndex:25];
-                    }
-                    strAux = [strAux stringByAppendingString:@"..."];
-                }
-                cell.thirdTextView.text = [NSString stringWithFormat:@"%ld", (long)numberOfNotifications];//@"# ";
-                cell.firstTextView.text = @"Notificaciones";
-                cell.secondTextView.text = strAux;
+                cell.firstTextView.text = @"Días de vacaciones:";
+                cell.secondTextView.text = [NSString stringWithString:[[[PPCCommon_Methods getDefaults]objectForKey:@"dias_correspondientes"] stringValue]];
+                cell.thirdTextView.text = @"Días consumidos: ";
+                cell.thirdTextView.text = [cell.thirdTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults] objectForKey:@"dias_consumidos"] stringValue]]];
+                cell.fourthTextView.text = @"Días restantes: ";
+                cell.fourthTextView.text = [cell.fourthTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults] objectForKey:@"dias_restantes"] stringValue]]];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             else
-                if(indexPath.row == 0){
-                    UIView *loading = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 80, 80)];
-                    loading.layer.cornerRadius = 15;
-                    [loading setBackgroundColor:[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO]];
-                    if([imagePathWelcome isEqualToString:@""]){
-                        UIActivityIndicatorView *spinning = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-                        spinning.frame = CGRectMake(8, 8, 64, 64);
-                        [spinning startAnimating];
-                        [loading addSubview:spinning];
-                        [cell.custom_imageView addSubview: loading];
+                if (indexPath.row == 4){
+                    cell.delegate = self;
+                    cell.pathToCell = indexPath;
+                    cell.custom_imageView.image= [UIImage imageNamed:@"64x64_notificacion.png"];
+                    cell.custom_imageView.image = [cell.custom_imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+                    [cell.custom_imageView setTintColor:[UIColor grayColor]];
+                    NSString *strAux = @"";
+                    if(numberOfNotifications){
+                        if([_arrayNotifications count]>0){
+                            NSDictionary *aux = [_arrayNotifications objectAtIndex:0];
+                            strAux = [[NSString stringWithString:[aux objectForKey:@"texto"]] substringToIndex:25];
+                        }
+                        strAux = [strAux stringByAppendingString:@"..."];
                     }
-                    else{
-                        UIImageView *new_image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePathWelcome]];
-                        new_image.contentMode = UIViewContentModeScaleAspectFit;
-                        new_image.frame = CGRectMake(8, 8, 64, 64);
-                        [loading addSubview:new_image];
-                        [cell.custom_imageView addSubview: loading];
-                    }
-                    cell.firstTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombrecuenta"];
-                    cell.secondTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_puesto"];
-                    cell.thirdTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_empresa"];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.thirdTextView.text = [NSString stringWithFormat:@"%ld", (long)numberOfNotifications];//@"# ";
+                    cell.firstTextView.text = @"Notificaciones";
+                    cell.secondTextView.text = strAux;
                 }
         cell.backgroundColor = [UIColor whiteColor];
         return cell;

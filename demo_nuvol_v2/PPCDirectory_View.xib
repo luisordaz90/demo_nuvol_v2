@@ -22,7 +22,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="PNi-PE-dFc"/>
-                        <outlet property="delegate" destination="-1" id="XJM-XB-FiS"/>
+                        <outlet property="delegate" destination="-1" id="LFy-MS-KNX"/>
                     </connections>
                 </tableView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo_120x120.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="ykx-vR-fhY">

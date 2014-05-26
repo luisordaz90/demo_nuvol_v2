@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface PPCCell_Directory : UITableViewCell
+@protocol DirectoryCellProtocol <NSObject>
+    -(void)clickedCell: (NSIndexPath *) pathToCell;
+@end
+@interface PPCCell_Directory : UITableViewCell <UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *cardImage;
 @property (weak, nonatomic) IBOutlet UITextView *cardName;
 @property (weak, nonatomic) IBOutlet UITextView *jobPosition;
+@property (weak,nonatomic) NSIndexPath *pathToCell;
+@property (strong, nonatomic) UITableView *principalTable;
+@property (weak, nonatomic) id<DirectoryCellProtocol> delegate;
+
+
+- (IBAction)touchedCell:(id)sender;
 
 @end

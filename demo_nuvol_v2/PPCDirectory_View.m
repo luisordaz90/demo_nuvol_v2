@@ -7,7 +7,6 @@
 //
 
 #import "PPCDirectory_View.h"
-#import "PPCCell_Directory.h"
 #import "PPCCustom_Cell_Spacer.h"
 
 
@@ -97,6 +96,29 @@ NSString *plistPath;
     return [contactArray count]*2-1;
 }
 
+-(void)clickedCell:(NSIndexPath *)pathToCell{
+    [_tableViewDirectory selectRowAtIndexPath:pathToCell animated:YES scrollPosition:UITableViewScrollPositionNone];
+    [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(animateSelectionTimer:) userInfo:pathToCell repeats:NO];
+
+}
+
+-(void)animateSelectionTimer:(NSTimer *)timer;
+{
+    [self performSelectorOnMainThread:@selector(animateSelection:) withObject:(NSIndexPath *)timer.userInfo waitUntilDone:NO];
+    [timer invalidate];
+}
+
+-(void)animateSelection:(NSIndexPath *)pathToCell
+{
+    if ([_tableViewDirectory.delegate respondsToSelector:@selector(tableView:willSelectRowAtIndexPath:)]) {
+        [_tableViewDirectory.delegate tableView:_tableViewDirectory willSelectRowAtIndexPath:pathToCell];
+    }
+    
+    if ([_tableViewDirectory.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [_tableViewDirectory.delegate tableView:_tableViewDirectory didSelectRowAtIndexPath:pathToCell];
+    }
+}
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -118,6 +140,9 @@ NSString *plistPath;
             }
         }
         NSDictionary *auxDict = [contactArray objectAtIndex: indexPath.row/2];
+        cell.pathToCell = indexPath;
+        cell.principalTable = tableView;
+        cell.delegate = self;
         cell.cardImage.image = [UIImage imageWithContentsOfFile: [PPCCommon_Methods getPathToImage:[auxDict objectForKey:@"foto"]]];
         cell.cardImage.contentMode = UIViewContentModeScaleAspectFit;
         [PPCCommon_Methods setTextView:cell.cardName andDict:auxDict andKey:@"nombre" andTextColor:@"#9AB4CB" andIsBold:false];
@@ -148,6 +173,7 @@ NSString *plistPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"ENTRO TABLE");
     NSDictionary *auxDict = [contactArray objectAtIndex: indexPath.row/2];
     if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
     {

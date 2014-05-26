@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol WelcomeCellProtocol <NSObject>
+    -(void)clickedCell: (NSIndexPath *) pathToCell;
+@end
 @interface PPCCustom_Cell_Welcome : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *firstTextView;
 @property (weak, nonatomic) IBOutlet UITextView *secondTextView;
 @property (weak, nonatomic) IBOutlet UIImageView *custom_imageView;
 @property (weak, nonatomic) IBOutlet UITextView *thirdTextView;
-
+@property (nonatomic) BOOL allowed;
+- (IBAction)touchedCell:(id)sender;
+@property (weak, nonatomic) id<WelcomeCellProtocol> delegate;
+@property (weak,nonatomic) NSIndexPath *pathToCell;
 @property (weak, nonatomic) IBOutlet UITextView *fourthTextView;
 
 @end

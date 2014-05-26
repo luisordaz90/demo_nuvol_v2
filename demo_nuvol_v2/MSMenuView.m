@@ -50,7 +50,7 @@
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-16.1)/2-12, 24, 24)];
         imgView.autoresizesSubviews = NO;
         imgView.autoresizingMask = 0;
-        imgView.image = [UIImage imageNamed:@"48x48_4.png"];
+        imgView.image = [UIImage imageNamed:@"home_image@2x.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
         [welcomeTab.titleLabel setFont:[UIFont systemFontOfSize:10]];
@@ -98,7 +98,7 @@
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
         myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
         imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-myStringSize.size.height)/2-12, 24, 24)];
-        imgView.image = [UIImage imageNamed:@"24x24_3.png"];
+        imgView.image = [UIImage imageNamed:@"contact_image.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
         [directoryTab setTitleEdgeInsets:UIEdgeInsetsMake(45.0f, 0.0f, 0.0f, 0.0f)];
@@ -143,7 +143,7 @@
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
         myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
         imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-myStringSize.size.height)/2-12, 24, 24)];
-        imgView.image = [UIImage imageNamed:@"24x24_6.png"];
+        imgView.image = [UIImage imageNamed:@"conf_image.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
         [preferencesTab setTitleEdgeInsets:UIEdgeInsetsMake(45.0f, 0.0f, 0.0f, 0.0f)];

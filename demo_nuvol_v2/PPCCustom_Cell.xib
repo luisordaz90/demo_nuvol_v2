@@ -36,6 +36,13 @@
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                     </textView>
+                    <view contentMode="scaleToFill" id="Cj5-f8-nue" customClass="UIControl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="99"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <connections>
+                            <action selector="touchedCell:" destination="aso-OQ-toL" eventType="touchUpInside" id="DTf-ml-XAd"/>
+                        </connections>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>

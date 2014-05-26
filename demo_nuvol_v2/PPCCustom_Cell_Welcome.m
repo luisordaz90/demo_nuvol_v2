@@ -28,4 +28,10 @@
 
 
 
+- (IBAction)touchedCell:(id)sender {
+    if([self.delegate respondsToSelector:@selector(clickedCell:)])
+    {
+        [self.delegate clickedCell: _pathToCell];
+    }
+}
 @end
