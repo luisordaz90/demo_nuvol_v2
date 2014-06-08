@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PPCCustom_Cell_Welcome.h"
+#import "PPCWelcomeCell.h"
+#import "PPCCustom_Cell_Spacer.h"
+#import "iOSRequest.h"
+#import "PPCCommon_Methods.h"
 
 @protocol WelcomeProtocol <NSObject>
     -(void)addNotificationView: (NSMutableArray *) notifications;
 @end
-@interface PPCWelcome_ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, WelcomeCellProtocol>
+@interface PPCWelcome_View : UIViewController <UITableViewDelegate, UITableViewDataSource, WelcomeCellProtocol>
 @property (strong,nonatomic) NSMutableArray *arrayNotifications;
 @property (weak, nonatomic) IBOutlet UITableView *tableVista;
 @property (weak, nonatomic) id<WelcomeProtocol> delegate;

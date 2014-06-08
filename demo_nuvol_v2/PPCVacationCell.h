@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PPCVacation_Cell : UITableViewCell
+@interface PPCVacationCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *initialDate;
 @property (weak, nonatomic) IBOutlet UILabel *finalDate;
 @property (weak, nonatomic) IBOutlet UILabel *type;

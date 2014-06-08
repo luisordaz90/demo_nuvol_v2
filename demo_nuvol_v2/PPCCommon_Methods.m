@@ -145,4 +145,17 @@
     textView.scrollEnabled = NO;
 }
 
++(void) setTextViewPlain: (UITextView *)textView andString: (NSString *) string andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size andType: (NSString *) type{
+    NSString *font_name = [@"HelveticaNeue" stringByAppendingString:type];
+    textView.font = [UIFont fontWithName:font_name size: size];
+    textView.text = string;
+    textView.textColor = [self colorFromHexString:color andAlpha:NO];
+    if(condition)
+        [textView setFont:[UIFont fontWithName:font_name size:size]];
+    BOOL sino = [PPCCommon_Methods textView:textView shouldChangeCharactersInRange:NSMakeRange(0, 10) replacementString:string];
+    NSLog(sino ? @"YES":@"NO");
+    textView.editable = NO;
+    textView.scrollEnabled = NO;
+}
+
 @end

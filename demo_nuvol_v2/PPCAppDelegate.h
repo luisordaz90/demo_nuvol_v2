@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PPCLogin_ViewController.h"
-#import "PPCWelcome_ViewController.h"
+#import "PPCWelcome_View.h"
 #import "PPCController_Base.h"
 
 @interface PPCAppDelegate : UIResponder <UIApplicationDelegate,LoginProtocol,RootProtocol>

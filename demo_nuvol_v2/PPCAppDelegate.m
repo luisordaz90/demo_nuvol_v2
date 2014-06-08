@@ -20,10 +20,6 @@
     [self.window makeKeyAndVisible];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     return YES;
-    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    //self.welcomeController = [[PPCWelcome_ViewController alloc] initWithNibName:@"Welcome_View" bundle:nil];
-    //self.pruebaMenu = [[PPCViewController_PruebaMenu alloc] initWithNibName:@"PPCViewController_PruebaMenu" bundle:nil];
-    //self.confController.delegate = self;
 
 }
 
@@ -33,30 +29,6 @@
     self.baseController = [[PPCController_Base alloc] initWithNibName:@"PPCController_Base" bundle:nil];
     self.window.rootViewController = self.baseController;
     self.baseController.delegate = self;
-    //PRIMERA VERSION:
-    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
-    /*self.confController = [[PPCConfiguration_ViewController alloc] initWithNibName:@"Configuration_View" bundle:nil];
-    [[NSBundle mainBundle] loadNibNamed:@"TabBarView" owner:self options:nil];
-    self.window.rootViewController = self.tabController;
-    float tabSize = self.tabController.tabBar.frame.size.width / [self.tabController.tabBar.items count];
-    float height = self.tabController.tabBar.frame.size.height;
-    self.tabController.tabBar.tintColor = [UIColor whiteColor];
-    //[[self.tabController.tabBar.items objectAtIndex:4] setTitle:@"HOLA"];
-    UITabBarItem *item = [self.tabController.tabBar.items objectAtIndex:4];
-    [item setSelectedImage:[[UIImage imageNamed:@"64x49px.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-    item.image = [UIImage imageNamed:@"clockicon.png"];
-    item.imageInsets = UIEdgeInsetsMake(6, 0, -6, 0);
-    //[self.tabController.tabBar setSelectedImageTintColor:[UIColor whiteColor]];
-    NSLog(@"TABSIZE: %lf %lf", tabSize,height);
-    //[tabBarItem setSelectedImage:[UIImage imageNamed:@"64x64dos.png"]];
-    NSArray *nuevo = [self.tabController viewControllers];
-    //self.window.rootViewController = self.confController;
-    //UIViewController *vista_prueba = [nuevo objectAtIndex:4];
-    PPCConfiguration_ViewController *vista_prob = [nuevo objectAtIndex:4];
-    vista_prob.delegate = self;
-    //[vista_prueba setValue:self forKey:@"delegate"];
-    //self.confController.delegate = self;*/
-
 }
 
 -(void)logoutMain

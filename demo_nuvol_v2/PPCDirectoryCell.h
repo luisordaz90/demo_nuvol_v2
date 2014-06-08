@@ -10,13 +10,15 @@
 @protocol DirectoryCellProtocol <NSObject>
     -(void)clickedCell: (NSIndexPath *) pathToCell;
 @end
-@interface PPCCell_Directory : UITableViewCell <UITableViewDelegate>
+@interface PPCDirectoryCell: UITableViewCell <UITableViewDelegate, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *cardImage;
 @property (weak, nonatomic) IBOutlet UITextView *cardName;
 @property (weak, nonatomic) IBOutlet UITextView *jobPosition;
 @property (weak,nonatomic) NSIndexPath *pathToCell;
+@property (nonatomic) BOOL painted;
 @property (strong, nonatomic) UITableView *principalTable;
 @property (weak, nonatomic) id<DirectoryCellProtocol> delegate;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollContent;
 
 
 - (IBAction)touchedCell:(id)sender;

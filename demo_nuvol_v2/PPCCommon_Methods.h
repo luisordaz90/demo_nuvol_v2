@@ -21,6 +21,7 @@ NSString *plistPath;
 +(BOOL)textView:(UITextView *)textView shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 +(void)setLabelDimension: (UILabel *)label andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size;
 +(void) setTextView: (UITextView *)textView andDict: (NSDictionary *) auxDict andKey: (NSString *)key andTextColor: (NSString *) color andIsBold: (BOOL) condition;
++(void)setTextViewPlain: (UITextView *)textView andString: (NSString *) string andTextColor: (NSString *) color andIsBold: (BOOL) condition andSize: (NSInteger) size andType: (NSString *) type;
 +(NSString *) getPlistPath;
 +(NSString *) getDocumentsPath;
 +(NSString *) getPathToImage: (NSString *) photoName;

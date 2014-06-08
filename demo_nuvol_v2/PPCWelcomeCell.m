@@ -1,22 +1,25 @@
 //
-//  PPCCell_Notification.m
+//  PPCCustom_Cell_Welcome.m
 //  demo_nuvol_v2
 //
-//  Created by Luis Ordaz on 3/19/14.
+//  Created by Luis Ordaz on 2/11/14.
 //  Copyright (c) 2014 Luis Ordaz. All rights reserved.
 //
 
-#import "PPCCell_Notification.h"
+#import "PPCWelcomeCell.h"
 
-@implementation PPCCell_Notification
+@implementation PPCWelcomeCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    //PPCPrueba_View *bg = [[PPCPrueba_View alloc] init];
     if (self) {
-        // Initialization code
+        //self.backgroundView = bg;
     }
     return self;
+
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -26,4 +29,11 @@
     // Configure the view for the selected state
 }
 
+
+- (IBAction)touchedCell:(id)sender {
+    if([self.delegate respondsToSelector:@selector(clickedCell:)])
+    {
+        [self.delegate clickedCell: _pathToCell];
+    }
+}
 @end

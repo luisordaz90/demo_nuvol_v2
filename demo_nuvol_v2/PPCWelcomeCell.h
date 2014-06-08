@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @protocol WelcomeCellProtocol <NSObject>
     -(void)clickedCell: (NSIndexPath *) pathToCell;
 @end
-@interface PPCCustom_Cell_Welcome : UITableViewCell
+@interface PPCWelcomeCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UITextView *firstTextView;
 @property (weak, nonatomic) IBOutlet UITextView *secondTextView;

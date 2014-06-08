@@ -7,9 +7,7 @@
 //
 
 #import "PPCNotification_View.h"
-#import "PPCCell_Notification.h"
-#import "PPCCustom_Cell_Spacer.h"
-#import "iOSRequest.h"
+
 
 @interface PPCNotification_View ()
 
@@ -111,11 +109,11 @@ NSString *plistPath;
     static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
     if(indexPath.row % 2 == 0){
 
-        PPCCell_Notification *cell = (PPCCell_Notification *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        PPCNotificationCell *cell = (PPCNotificationCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCell_Notification" owner:self options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCNotificationCell" owner:self options:nil];
             for (id eachObject in nib) {
                 if ([eachObject isKindOfClass:[UITableViewCell class]]) {
                     cell = eachObject;

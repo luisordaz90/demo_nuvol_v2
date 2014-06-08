@@ -9,7 +9,7 @@
 #import "iOSRequest.h"
 #import "NSString+WebService.h"
 
-NSString *basePath = @"http://demo.people-cloud.com/controller/";
+NSString *basePath =@"http://10.20.20.249/codiad/workspace/people-cloud/controller/"; //@"http://demo.people-cloud.com/controller/";
 
 @implementation iOSRequest
 +(void)requestPath:(NSString *)path onCompletion:(RequestCompletionHandler)complete
@@ -40,7 +40,8 @@ NSString *basePath = @"http://demo.people-cloud.com/controller/";
     name = [name URLEncode];
     NSString *deviceType = [UIDevice currentDevice].model;
     deviceType = [deviceType stringByReplacingOccurrencesOfString:@" " withString:@"_"];
-    NSString *fullPath = [basePath stringByAppendingFormat:@"%@?mobile=1&usuarios=%@&password=%@&UID=%@&name=%@&device_type=%@",@"Mobile_Controller",userName,password,UID,name,deviceType,nil];
+    //NSString *fullPath = [basePath stringByAppendingFormat:@"%@?mobile=1&usuarios=%@&password=%@&UID=%@&name=%@&device_type=%@",@"Mobile_Controller",userName,password,UID,name,deviceType,nil];
+    NSString *fullPath = [basePath stringByAppendingFormat:@"%@?&mobile=1&usuarios=%@&password=%@&UID=%@&name=%@&device_type=%@",@"Mobile_Controller",userName,password,UID,name,deviceType,nil];
     NSLog(@"%@",fullPath);
     [iOSRequest requestPath:fullPath onCompletion:^(NSString *result, NSError *error){
         if (error || [result isEqualToString:@""]) {
@@ -57,7 +58,8 @@ NSString *basePath = @"http://demo.people-cloud.com/controller/";
     SID = [SID URLEncode];
     user = [user URLEncode];
     token = [token URLEncode];
-    NSString *fullPath = [basePath stringByAppendingFormat:@"%@?mobile=1&usuarios=%@&SID=%@&token=%@&accion=%@&%@",controller,user,SID,token,action,params];
+    //NSString *fullPath = [basePath stringByAppendingFormat:@"%@?mobile=1&usuarios=%@&SID=%@&token=%@&accion=%@&%@",controller,user,SID,token,action,params];
+    NSString *fullPath = [basePath stringByAppendingFormat:@"%@?&mobile=1&usuarios=%@&SID=%@&token=%@&accion=%@&%@",controller,user,SID,token,action,params];
     NSLog(@"%@",fullPath);
     [iOSRequest requestPath:fullPath onCompletion:^(NSString *result, NSError *error){
         if (error || [result isEqualToString:@""]) {

@@ -6,13 +6,9 @@
 //  Copyright (c) 2014 Luis Ordaz. All rights reserved.
 //
 
-#import "PPCWelcome_ViewController.h"
-#import "PPCCustom_Cell_Welcome.h"
-#import "PPCCustom_Cell_Spacer.h"
-#import "iOSRequest.h"
-#import "PPCCommon_Methods.h"
+#import "PPCWelcome_View.h"
 
-@interface PPCWelcome_ViewController ()
+@interface PPCWelcome_View ()
 
 @end
 NSString *imagePathWelcome;
@@ -21,7 +17,7 @@ NSMutableDictionary *docDict;
 NSString *aux;
 NSDictionary *dictRoot;
 
-@implementation PPCWelcome_ViewController
+@implementation PPCWelcome_View
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -160,11 +156,11 @@ NSDictionary *dictRoot;
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
     if(indexPath.row % 2 == 0){
-        PPCCustom_Cell_Welcome *cell = (PPCCustom_Cell_Welcome *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        PPCWelcomeCell *cell = (PPCWelcomeCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         cell.custom_imageView.image = nil;
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCCustom_Cell" owner:self options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCWelcomeCell" owner:self options:nil];
             for (id eachObject in nib) {
                 if ([eachObject isKindOfClass:[UITableViewCell class]]) {
                     cell = eachObject;
@@ -187,15 +183,18 @@ NSDictionary *dictRoot;
                 [cell.custom_imageView addSubview: loading];
             }
             else{
-                UIImageView *new_image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePathWelcome]];
-                new_image.contentMode = UIViewContentModeScaleAspectFit;
-                new_image.frame = CGRectMake(8, 8, 64, 64);
-                [loading addSubview:new_image];
-                [cell.custom_imageView addSubview: loading];
+                //UIImageView *new_image = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:imagePathWelcome]];
+                //new_image.contentMode = UIViewContentModeScaleAspectFit;
+                //new_image.frame = CGRectMake(8, 8, 64, 64);
+                //[loading addSubview:new_image];
+                //[cell.custom_imageView addSubview: loading];
+                cell.custom_imageView.image = [UIImage imageWithContentsOfFile:imagePathWelcome];
+                cell.custom_imageView.contentMode = UIViewContentModeScaleAspectFit;
             }
-            cell.firstTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombrecuenta"];
-            cell.secondTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_puesto"];
-            cell.thirdTextView.text = [[PPCCommon_Methods getDefaults] objectForKey:@"nombre_empresa"];
+            
+            [PPCCommon_Methods setTextViewPlain:cell.firstTextView andString:[[PPCCommon_Methods getDefaults] objectForKey:@"nombrecuenta"] andTextColor:@"#000000" andIsBold:NO andSize:19 andType:@"-light"];
+            [PPCCommon_Methods setTextViewPlain:cell.secondTextView andString:[[PPCCommon_Methods getDefaults] objectForKey:@"nombre_puesto"] andTextColor:@"#000000" andIsBold:NO andSize:14 andType:@"-thin"];
+            [PPCCommon_Methods setTextViewPlain:cell.thirdTextView andString:[[PPCCommon_Methods getDefaults] objectForKey:@"nombre_empresa"] andTextColor:@"#000000" andIsBold:NO andSize:14 andType:@"-thin"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         
@@ -204,8 +203,9 @@ NSDictionary *dictRoot;
                 cell.custom_imageView.image= [UIImage imageNamed:@"64x64.png"];
                 cell.custom_imageView.image = [cell.custom_imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
                 [cell.custom_imageView setTintColor:[UIColor grayColor]];
-                cell.firstTextView.text = @"Días de vacaciones:";
-                cell.secondTextView.text = [NSString stringWithString:[[[PPCCommon_Methods getDefaults]objectForKey:@"dias_correspondientes"] stringValue]];
+                [PPCCommon_Methods setTextViewPlain:cell.firstTextView andString:@"Vacaciones" andTextColor:@"#000000" andIsBold:YES andSize:14 andType:@""];
+                cell.secondTextView.text =@"Dias correspondientes: ";
+                cell.secondTextView.text = [cell.secondTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults]objectForKey:@"dias_correspondientes"] stringValue]]];
                 cell.thirdTextView.text = @"Días consumidos: ";
                 cell.thirdTextView.text = [cell.thirdTextView.text stringByAppendingString:[NSString stringWithString:[[[PPCCommon_Methods getDefaults] objectForKey:@"dias_consumidos"] stringValue]]];
                 cell.fourthTextView.text = @"Días restantes: ";
@@ -228,7 +228,7 @@ NSDictionary *dictRoot;
                         strAux = [strAux stringByAppendingString:@"..."];
                     }
                     cell.thirdTextView.text = [NSString stringWithFormat:@"%ld", (long)numberOfNotifications];//@"# ";
-                    cell.firstTextView.text = @"Notificaciones";
+                    [PPCCommon_Methods setTextViewPlain:cell.firstTextView andString:@"Notificaciones" andTextColor:@"#000000" andIsBold:YES andSize:14 andType:@""];
                     cell.secondTextView.text = strAux;
                 }
         cell.backgroundColor = [UIColor whiteColor];

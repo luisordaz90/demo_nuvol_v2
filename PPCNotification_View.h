@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPCNotificationCell.h"
+#import "PPCCustom_Cell_Spacer.h"
+#import "iOSRequest.h"
+
 @protocol NotificationProtocol <NSObject>
     -(void)clickedButton;
     -(void)updateMessages: (NSMutableArray *) notifications;
 @end
-@interface PPCNotification_View : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface PPCNotification_View : UIViewController <UITableViewDelegate, UITableViewDataSource>
 @property (strong,nonatomic) NSMutableArray *notifications;
 @property (weak, nonatomic) IBOutlet UITableView *tableViewNot;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) id<NotificationProtocol> delegate;
 - (IBAction)goBack:(id)sender;
-
-
 @end

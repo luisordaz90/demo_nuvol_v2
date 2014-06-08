@@ -1,14 +1,14 @@
 //
-//  PPCCell_Directory.m
+//  PPCCell_Notification.m
 //  demo_nuvol_v2
 //
-//  Created by Luis Ordaz on 3/5/14.
+//  Created by Luis Ordaz on 3/19/14.
 //  Copyright (c) 2014 Luis Ordaz. All rights reserved.
 //
 
-#import "PPCCell_Directory.h"
+#import "PPCNotificationCell.h"
 
-@implementation PPCCell_Directory
+@implementation PPCNotificationCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -26,19 +26,4 @@
     // Configure the view for the selected state
 }
 
-- (void)setFrame:(CGRect)frame {
-    //frame.origin.x += 10;
-    //frame.origin.y -= 10;
-    //frame.size.width -= 2 * 10;
-    //frame.size.height += 50;
-    [super setFrame:frame];
-}
-
-- (IBAction)touchedCell:(id)sender {
-    if([self.delegate respondsToSelector:@selector(clickedCell:)])
-    {
-        [self.delegate clickedCell: _pathToCell];
-    }
-
-}
 @end

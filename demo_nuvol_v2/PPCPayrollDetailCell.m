@@ -1,14 +1,14 @@
 //
-//  PPCVacation_Cell.m
+//  PPCPayrollDetailCell.m
 //  demo_nuvol_v2
 //
-//  Created by Luis Ordaz on 3/31/14.
+//  Created by Luis Ordaz on 6/2/14.
 //  Copyright (c) 2014 Luis Ordaz. All rights reserved.
 //
 
-#import "PPCVacation_Cell.h"
+#import "PPCPayrollDetailCell.h"
 
-@implementation PPCVacation_Cell
+@implementation PPCPayrollDetailCell
 
 - (void)awakeFromNib
 {

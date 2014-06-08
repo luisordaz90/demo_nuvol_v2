@@ -34,11 +34,6 @@ NSString *plistPath;
     [super viewDidLoad];
     plistPath = [PPCCommon_Methods getPlistPath];
     dictRoot = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-    [iOSRequest generalRequest:[dictRoot objectForKey:@"SID"] andUser:[dictRoot objectForKey:@"user_id"] andToken:[dictRoot objectForKey:@"token"] andAction:@"directorio_empleados" andController:@"Empleado_Controller" andParams:@"" onCompletion:^(NSDictionary *session){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            contactArray = [session objectForKey:@"contenido"];
-        });
-    }];
 
 }
 
@@ -66,18 +61,25 @@ NSString *plistPath;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"APAREZCO");
     loading = [PPCCommon_Methods generateLoadingView:CGRectMake(80, 166, 160, 160) andIndicatorDimensions:CGRectMake(61.5, 61.5, 37, 37) andAlpha:NO];
     [self.view addSubview:loading];
     dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
-    dispatch_async(imageQueue, ^{
-        [PPCCommon_Methods downloadImagesWithArray:contactArray andDict:docDict];
+    [iOSRequest generalRequest:[dictRoot objectForKey:@"SID"] andUser:[dictRoot objectForKey:@"user_id"] andToken:[dictRoot objectForKey:@"token"] andAction:@"directorio_empleados" andController:@"Empleado_Controller" andParams:@"" onCompletion:^(NSDictionary *session){
         dispatch_async(dispatch_get_main_queue(), ^{
-               [_tableViewDirectory reloadData];
-               [loading removeFromSuperview];
-               _tableViewDirectory.hidden = NO;
+            contactArray = [session objectForKey:@"contenido"];
+            dispatch_async(imageQueue, ^{
+                [PPCCommon_Methods downloadImagesWithArray:contactArray andDict:docDict];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_tableViewDirectory reloadData];
+                    [loading removeFromSuperview];
+                    _tableViewDirectory.hidden = NO;
+                });
+                
+            });
         });
-            
-    });
+    }];
+
 }
 
 
@@ -93,6 +95,7 @@ NSString *plistPath;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:    (NSInteger)section
 {
+    NSLog(@"%lu", [contactArray count]);
     return [contactArray count]*2-1;
 }
 
@@ -125,10 +128,10 @@ NSString *plistPath;
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
     if(indexPath.row % 2 == 0){
-        PPCCell_Directory *cell = (PPCCell_Directory *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        PPCDirectoryCell *cell = (PPCDirectoryCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCCell_Directory" owner:self options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCDirectoryCell" owner:self options:nil];
             for (id eachObject in nib) {
                 if ([eachObject isKindOfClass:[UITableViewCell class]]) {
                     cell = eachObject;
@@ -145,7 +148,22 @@ NSString *plistPath;
         cell.delegate = self;
         cell.cardImage.image = [UIImage imageWithContentsOfFile: [PPCCommon_Methods getPathToImage:[auxDict objectForKey:@"foto"]]];
         cell.cardImage.contentMode = UIViewContentModeScaleAspectFit;
-        [PPCCommon_Methods setTextView:cell.cardName andDict:auxDict andKey:@"nombre" andTextColor:@"#9AB4CB" andIsBold:false];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                   0,
+                                                                   500,
+                                                                   25)];
+
+        
+        label.text = @"HOLA COMO ESTAMOS EL DIA DE HOY HOLA COMO ESTAMOS EL DIA DE HOY HOLA COMO ESTAMOS EL DIA DE HOY HOLA COMO ESTAMOS EL DIA DE HOY";
+        label.font = [UIFont fontWithName:@"Arial" size:12];
+        label.backgroundColor = [UIColor whiteColor];
+        label.textColor = [UIColor redColor];
+        CGSize tamano = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
+        label.frame = CGRectMake(0, 0, tamano.width, tamano.height);
+        //[cell addSubview:label];
+        [cell.scrollContent addSubview:label];
+        [cell.scrollContent setContentSize:CGSizeMake(tamano.width, tamano.height)];
+        //[PPCCommon_Methods setTextView:cell.cardName andDict:auxDict andKey:@"nombre" andTextColor:@"#9AB4CB" andIsBold:false];
         [PPCCommon_Methods setTextView:cell.jobPosition andDict:auxDict andKey:@"puesto" andTextColor:@"#000000" andIsBold:true];
         [cell.layer setMasksToBounds:YES];
         cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
@@ -173,9 +191,8 @@ NSString *plistPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"ENTRO TABLE");
     NSDictionary *auxDict = [contactArray objectAtIndex: indexPath.row/2];
-    if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
+    if([self.delegate respondsToSelector:@selector(requestPersonDetail:)])
     {
         [self.delegate requestPersonDetail:auxDict];
     }

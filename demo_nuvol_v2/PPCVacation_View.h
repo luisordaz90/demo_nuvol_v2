@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iOSRequest.h"
 #import "V8HorizontalPickerView.h"
 #import "PPCCommon_Methods.h"
+#import "PPCVacationCell.h"
+#import "PPCCustom_Cell_Spacer.h"
 
 @protocol VacationProtocol <NSObject>
 -(void)requestAssitanceView: (NSMutableArray *) types andIndexes: (NSMutableArray *) index_number;

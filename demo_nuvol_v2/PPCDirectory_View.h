@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "iOSRequest.h"
 #import "PPCDetail_View.h"
-#import "PPCCell_Directory.h"
+#import "PPCDirectoryCell.h"
 #import "PPCCommon_Methods.h"
 
 @protocol DirectoryProtocol <NSObject>
     -(void)requestPersonDetail: (NSDictionary *) personDetails;
 @end
-@interface PPCDirectory_View : UIViewController  <UITableViewDelegate, UITableViewDataSource, DirectoryCellProtocol>
+@interface PPCDirectory_View : UIViewController  <UITableViewDelegate, UITableViewDataSource, DirectoryCellProtocol, UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableViewDirectory;
 @property (weak, nonatomic) id<DirectoryProtocol> delegate;
 

@@ -7,9 +7,7 @@
 //
 
 #import "PPCVacation_View.h"
-#import "iOSRequest.h"
-#import "PPCVacation_Cell.h"
-#import "PPCCustom_Cell_Spacer.h"
+
 
 @interface PPCVacation_View ()
 
@@ -157,10 +155,10 @@ NSDictionary *dictRoot;
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
     static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
     if(indexPath.row % 2 == 0){
-        PPCVacation_Cell *cell = (PPCVacation_Cell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+        PPCVacationCell *cell = (PPCVacationCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
         if (cell == nil)
         {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCVacation_Cell" owner:self options:nil];
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCVacationCell" owner:self options:nil];
             for (id eachObject in nib) {
                 if ([eachObject isKindOfClass:[UITableViewCell class]]) {
                     cell = eachObject;

@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Luis Ordaz. All rights reserved.
 //
 
-#import "PPCConfiguration_ViewController.h"
+#import "PPCConfiguration_View.h"
 #import "PPCCommon_Methods.h"
 
-@interface PPCConfiguration_ViewController ()
+@interface PPCConfiguration_View ()
 @end
 
-@implementation PPCConfiguration_ViewController
+@implementation PPCConfiguration_View
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

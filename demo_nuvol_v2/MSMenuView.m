@@ -26,20 +26,17 @@
 #import "MSMenuView.h"
 #import <QuartzCore/QuartzCore.h>
 
+float quantity = 320/5;
 @implementation MSMenuView
 @synthesize  welcomeTab,vacationTab,directoryTab,infoCenterTab,preferencesTab,delegate;
 
-
 - (id)initWithFrame:(CGRect)frame
 {
-    NSLog(@"%lf %lf",frame.origin.x,frame.origin.y);
     CGRect frame1=CGRectMake(frame.origin.x, frame.origin.y, 320, 76);
     self = [super initWithFrame:frame1];
     if (self) {
-        UIView *vistaDel = [[UIView alloc] initWithFrame:CGRectMake(60, 0, 4, 71)];
-        [vistaDel setBackgroundColor: [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.5f]];
         welcomeTab=[UIButton buttonWithType:UIButtonTypeCustom];
-        [welcomeTab setFrame:CGRectMake(0, 0, 80, 71)];
+        [welcomeTab setFrame:CGRectMake(0, 0, quantity, 71)];
         [welcomeTab setSelected:YES];
         [welcomeTab setTag:1];
         [welcomeTab setTitle:@"Inicio" forState:UIControlStateNormal];
@@ -47,10 +44,10 @@
         CGSize maximumSize = CGSizeMake(80, 10);
         UIFont *myFont = [UIFont fontWithName:@"Helvetica" size:14];
         CGRect myStringSize =  [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
-        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-16.1)/2-12, 24, 24)];
+        UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake((quantity/2)-12, (71-16.1)/2-12, 24, 24)];
         imgView.autoresizesSubviews = NO;
         imgView.autoresizingMask = 0;
-        imgView.image = [UIImage imageNamed:@"home_image@2x.png"];
+        imgView.image = [UIImage imageNamed:@"payroll@2x.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
         [welcomeTab.titleLabel setFont:[UIFont systemFontOfSize:10]];
@@ -62,20 +59,19 @@
         //[welcomeTab setBackgroundImage:[UIImage imageNamed:@"TabBarBG.png"] forState:UIControlStateSelected];
         [welcomeTab setBackgroundColor:[UIColor colorWithRed:94.0f/255.0f green:145.0f/255.0f blue:234.0f/255.0f alpha:1.0f]];
         [welcomeTab addTarget:self action:@selector(tabClickAction:) forControlEvents:UIControlEventTouchUpInside];
-        //[welcomeTab addSubview:vistaDel];
         [welcomeTab addSubview:imgView];
         [self addSubview:welcomeTab];
         
 
         vacationTab=[UIButton buttonWithType:UIButtonTypeCustom];
-        [vacationTab setFrame:CGRectMake(80, 5, 80, 71)];
+        [vacationTab setFrame:CGRectMake(quantity, 5, quantity, 71)];
         [vacationTab setTag:2];
         [vacationTab setTitle:@"Vacaciones" forState:UIControlStateNormal];
         maximumSize = CGSizeMake(80, 10);
         myString = vacationTab.titleLabel.text;
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
         myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
-        imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-myStringSize.size.height)/2-12, 24, 24)];
+        imgView = [[UIImageView alloc] initWithFrame:CGRectMake((quantity/2)-12, (71-myStringSize.size.height)/2-12, 24, 24)];
         NSLog(@"HEIGHT %lf",myStringSize.size.height);
         imgView.image = [UIImage imageNamed:@"24x24_2.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -90,14 +86,14 @@
         [self addSubview:vacationTab];
 
         directoryTab=[UIButton buttonWithType:UIButtonTypeCustom];
-        [directoryTab setFrame:CGRectMake(160, 5, 80, 71)];
+        [directoryTab setFrame:CGRectMake(quantity*2, 5, quantity, 71)];
         [directoryTab setTag:3];
         [directoryTab setTitle:@"Directorio" forState:UIControlStateNormal];
         maximumSize = CGSizeMake(80, 10);
         myString = directoryTab.titleLabel.text;
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
         myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
-        imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-myStringSize.size.height)/2-12, 24, 24)];
+        imgView = [[UIImageView alloc] initWithFrame:CGRectMake((quantity/2)-12, (71-myStringSize.size.height)/2-12, 24, 24)];
         imgView.image = [UIImage imageNamed:@"contact_image.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
@@ -110,17 +106,15 @@
         [directoryTab addSubview:imgView];
         [self addSubview:directoryTab];
 
-        /*infoCenterTab=[UIButton buttonWithType:UIButtonTypeCustom];
-        [infoCenterTab setFrame:CGRectMake(192, 5, 64, 71)];
+        infoCenterTab=[UIButton buttonWithType:UIButtonTypeCustom];
+        [infoCenterTab setFrame:CGRectMake(quantity*3, 5, quantity, 71)];
         [infoCenterTab setTag:4];
         [infoCenterTab setTitle:@"Nómina" forState:UIControlStateNormal];
         maximumSize = CGSizeMake(64, 10);
         myString = infoCenterTab.titleLabel.text;
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
-        myStringSize = [myString sizeWithFont:myFont
-                            constrainedToSize:maximumSize
-                                lineBreakMode:NO];
-        imgView = [[UIImageView alloc] initWithFrame:CGRectMake(32-12, (71-myStringSize.height)/2-12, 24, 24)];
+        myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
+        imgView = [[UIImageView alloc] initWithFrame:CGRectMake((quantity/2)-12, (71-myStringSize.size.height)/2-12, 24, 24)];
         imgView.image = [UIImage imageNamed:@"24x24_4.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
@@ -131,18 +125,18 @@
         [infoCenterTab setBackgroundColor:[UIColor colorWithRed:94.0f/255.0f green:145.0f/255.0f blue:234.0f/255.0f alpha:1.0f]];
         [infoCenterTab addTarget:self action:@selector(tabClickAction:) forControlEvents:UIControlEventTouchUpInside];
         [infoCenterTab addSubview: imgView];
-        [self addSubview:infoCenterTab];*/
+        [self addSubview:infoCenterTab];
 
         
         preferencesTab=[UIButton buttonWithType:UIButtonTypeCustom];
-        [preferencesTab setFrame:CGRectMake(240, 5, 80, 71)];
+        [preferencesTab setFrame:CGRectMake(quantity*4, 5, quantity, 71)];
         [preferencesTab setTag:5];
         [preferencesTab setTitle:@"Ajustes" forState:UIControlStateNormal];
         maximumSize = CGSizeMake(80, 10);
         myString = preferencesTab.titleLabel.text;
         myFont = [UIFont fontWithName:@"Helvetica" size:14];
         myStringSize = [myString boundingRectWithSize: maximumSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:myFont} context:nil];
-        imgView = [[UIImageView alloc] initWithFrame:CGRectMake(40-12, (71-myStringSize.size.height)/2-12, 24, 24)];
+        imgView = [[UIImageView alloc] initWithFrame:CGRectMake((quantity/2)-12, (71-myStringSize.size.height)/2-12, 24, 24)];
         imgView.image = [UIImage imageNamed:@"conf_image.png"];
         imgView.image = [imgView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [imgView setTintColor:[UIColor whiteColor]];
@@ -155,6 +149,7 @@
         [preferencesTab addTarget:self action:@selector(tabClickAction:) forControlEvents:UIControlEventTouchUpInside];
         [preferencesTab addSubview:imgView];
         [self addSubview:preferencesTab];
+        
         UIView *inferiorDelimeter = [[UIView alloc] initWithFrame:CGRectMake(0, 71, 320, 5)];
         [inferiorDelimeter setBackgroundColor: [UIColor colorWithRed:0.0f/255.0f green:0.0f/255.0f blue:0.0f/255.0f alpha:0.5f]];
         [self addSubview:inferiorDelimeter];
@@ -236,7 +231,7 @@
     }
     if (value==5) {
         [self.delegate preferencesTabClick];
-     }
+    }
 }
 
 -(void)tabClickAction:(id)sender{
