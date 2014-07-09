@@ -13,10 +13,13 @@
 #import "PPCCommon_Methods.h"
 
 @protocol DirectoryProtocol <NSObject>
-    -(void)requestPersonDetail: (NSDictionary *) personDetails;
+    -(void)openMenu: (UIViewController *) view;
 @end
-@interface PPCDirectory_View : UIViewController  <UITableViewDelegate, UITableViewDataSource, DirectoryCellProtocol, UIScrollViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tableViewDirectory;
+
+@interface PPCDirectory_View : UIViewController  <UITableViewDelegate, UITableViewDataSource, DirectoryCellProtocol, UIScrollViewDelegate, UINavigationControllerDelegate>
+@property (strong,nonatomic) PPCDetail_View *detailView;
 @property (weak, nonatomic) id<DirectoryProtocol> delegate;
+@property (weak, nonatomic) IBOutlet UITableView *tableViewDirectory;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 
 @end

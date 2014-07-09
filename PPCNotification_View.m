@@ -39,6 +39,7 @@ NSString *plistPath;
     _backButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     _backButton.layer.sublayerTransform = CATransform3DMakeTranslation(1, 0, 0);
     [_backButton addTarget:self action:@selector(changeBackground:) forControlEvents:UIControlStateHighlighted];
+    _mainView.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#555555" andAlpha:NO];
 }
 
 - (UIColor *)colorFromHexString:(NSString *)hexString andAlpha: (BOOL) alpha{
@@ -59,7 +60,11 @@ NSString *plistPath;
     }
     dictRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     NSLog(@"ENTRO AQUI: %lu", (unsigned long)[_notifications count]);
+    _tableViewNot.backgroundColor = [UIColor clearColor];
+    [_tableViewNot setShowsHorizontalScrollIndicator:NO];
+    [_tableViewNot setShowsVerticalScrollIndicator:NO];
     [_tableViewNot reloadData];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,10 +79,10 @@ NSString *plistPath;
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:    (NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection: (NSInteger)section
 {
     // It will not run this function !!
-    return [_notifications count]*2-1;
+    return [_notifications count];
 }
 
 - (UIColor *)colorFromHexString:(NSString *)hexString {
@@ -106,9 +111,6 @@ NSString *plistPath;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
-    if(indexPath.row % 2 == 0){
-
         PPCNotificationCell *cell = (PPCNotificationCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
     
         if (cell == nil)
@@ -132,37 +134,12 @@ NSString *plistPath;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [self colorFromHexString:@"#FFFFFF"];
         return cell;
-    }
-    else{
-        PPCCustom_Cell_Spacer *cell = (PPCCustom_Cell_Spacer *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifierSpacer];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCCustom_Cell_Spacer" owner:self options:nil];
-            for (id eachObject in nib) {
-                if ([eachObject isKindOfClass:[UITableViewCell class]]) {
-                    cell = eachObject;
-                    break;
-                }
-                else{
-                    NSLog(@"NO");
-                }
-            }
-        }
-        cell.backgroundColor = [self colorFromHexString:@"#5EAEEA"];
-        return cell;
-    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2 == 0) {
-        // this is a container cell
         return 99.0;
-    }
-    else {
-        // this is a "space" cell
-        return 3.0;
-    }
 }
 
 -(void)changeBackground:(UIButton *)sender{
@@ -189,7 +166,22 @@ NSString *plistPath;
 }
 
 
-// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,304,95)];
+    whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
+    whiteRoundedCornerView.layer.masksToBounds = NO;
+    //whiteRoundedCornerView.layer.cornerRadius = 3.0;
+    whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
+    whiteRoundedCornerView.layer.shadowOpacity = 0.5;
+    whiteRoundedCornerView.tag = 10;
+    if(![cell.contentView viewWithTag:10]){
+        [cell.contentView addSubview:whiteRoundedCornerView];
+        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
+    }
+    cell.backgroundColor = [UIColor clearColor];
+}
+
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

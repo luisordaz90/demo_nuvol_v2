@@ -26,6 +26,7 @@
 -(void)dismissedSubviewLogin
 {
     [self.logController.view removeFromSuperview];
+    self.logController = nil;
     self.baseController = [[PPCController_Base alloc] initWithNibName:@"PPCController_Base" bundle:nil];
     self.window.rootViewController = self.baseController;
     self.baseController.delegate = self;

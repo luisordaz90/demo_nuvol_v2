@@ -28,11 +28,11 @@
 #import <UIKit/UIKit.h>
 @protocol MSMenuViewDelegate<NSObject>
 @required
--(void)welcomeTabClick;
--(void)vacationTabClick;
--(void)directoryTabClick;
--(void)infoCenterTabClick;
--(void)preferencesTabClick;
+    -(void)welcomeTabClick;
+    -(void)attendanceTabClick;
+    -(void)directoryTabClick;
+    -(void)payrollTabClick;
+    -(void)configurationTabClick;
 @end
 @interface MSMenuView : UIView{
     UIButton *welcomeTab;

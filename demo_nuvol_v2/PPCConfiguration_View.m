@@ -7,7 +7,6 @@
 //
 
 #import "PPCConfiguration_View.h"
-#import "PPCCommon_Methods.h"
 
 @interface PPCConfiguration_View ()
 @end
@@ -26,9 +25,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    _dismiss_button.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
-    _dismiss_button.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
 }
 
 - (void)didReceiveMemoryWarning

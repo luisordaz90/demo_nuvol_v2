@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PPCPayrollDetailCell.h"
 #import "iOSRequest.h"
 #import "PPCCommon_Methods.h"
+#import "PPCPayrollDetailCell.h"
 
 @protocol PayrollDetailProtocol <NSObject>
     -(void)returnToPayroll;

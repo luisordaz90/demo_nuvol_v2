@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "iOSRequest.h"
+#import "PPCCommon_Methods.h"
 #import "V8HorizontalPickerView.h"
 
 @protocol AssistanceProtocol <NSObject>
     -(void)clickedButtonAssistance;
-    -(void)returnToVacation;
 @end
 @interface PPCAssistanceRequest : UIViewController <V8HorizontalPickerViewDelegate, V8HorizontalPickerViewDataSource,UIAlertViewDelegate>
 @property (weak, nonatomic) id<AssistanceProtocol> delegate;
@@ -21,12 +22,10 @@
 @property (nonatomic, strong) V8HorizontalPickerView *pickerView;
 @property (weak, nonatomic) IBOutlet UITextField *initialDateField;
 @property (weak, nonatomic) IBOutlet UITextField *finalDateField;
-
 @property (weak, nonatomic) IBOutlet UIView *principalView;
-- (IBAction)returnView:(id)sender;
+@property (weak, nonatomic) IBOutlet UITextView *descriptionText;
+@property (weak, nonatomic) IBOutlet UIControl *mainView;
 - (IBAction)initialDate:(id)sender;
 - (IBAction)finalDate:(id)sender;
-@property (weak, nonatomic) IBOutlet UITextView *descriptionText;
 - (IBAction)dismissFirstResponder:(id)sender;
-
 @end

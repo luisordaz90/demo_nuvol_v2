@@ -13,9 +13,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    //PPCPrueba_View *bg = [[PPCPrueba_View alloc] init];
     if (self) {
-        //self.backgroundView = bg;
     }
     return self;
 

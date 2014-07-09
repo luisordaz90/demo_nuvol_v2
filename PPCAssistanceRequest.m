@@ -7,7 +7,6 @@
 //
 
 #import "PPCAssistanceRequest.h"
-#import "iOSRequest.h"
 
 @interface PPCAssistanceRequest ()
 
@@ -34,27 +33,27 @@ NSString *plistPath;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     selectedIndex = [_indexes objectAtIndex:0];
-    UIButton *dismiss_button = [[UIButton alloc] initWithFrame:CGRectMake(20, 320, 280, 40)];
+    UIButton *dismiss_button = [[UIButton alloc] initWithFrame:CGRectMake(20, 390, 280, 40)];
     [dismiss_button.layer setBorderWidth:0.5];
     [dismiss_button setTitle:@"Confirmar" forState:UIControlStateNormal];
     dismiss_button.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     [dismiss_button addTarget:self action:@selector(addRequest) forControlEvents:UIControlEventTouchUpInside];
-    dismiss_button.backgroundColor = [self colorFromHexString:@"#709D43" andAlpha:NO];
-    dismiss_button.layer.borderColor = [[self colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
+    dismiss_button.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    dismiss_button.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
     [dismiss_button setTitleColor:[UIColor whiteColor] forState: UIControlStateNormal];
     [dismiss_button setTitleColor:[UIColor grayColor] forState: UIControlStateHighlighted];
-    _descriptionText.backgroundColor = [self colorFromHexString:@"#FFFFFF" andAlpha:NO];
-    _descriptionText.layer.borderColor = [[self colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
+    _descriptionText.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
+    _descriptionText.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
     _descriptionText.layer.borderWidth = 1.0f;
     _descriptionText.autocorrectionType = NO;
     _descriptionText.autocapitalizationType = NO;
-    _initialDateField.layer.borderColor = [[self colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
+    _initialDateField.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
     _initialDateField.layer.borderWidth = 1.0f;
-    _finalDateField.layer.borderColor = [[self colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
+    _finalDateField.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
     _finalDateField.layer.borderWidth = 1.0f;
     [self.principalView addSubview:dismiss_button];
-    _backButton.backgroundColor = [self colorFromHexString:@"#709D43" andAlpha:NO];
-    _backButton.layer.borderColor = [[self colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
+    _backButton.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    _backButton.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
     [_backButton.layer setBorderWidth:1.0f];
     [_backButton setTitle:@"Regresar" forState:UIControlStateNormal];
     [_backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -62,6 +61,7 @@ NSString *plistPath;
     _backButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     _backButton.layer.sublayerTransform = CATransform3DMakeTranslation(1, 0, 0);
     [_backButton addTarget:self action:@selector(changeBackground:) forControlEvents:UIControlStateHighlighted];
+    _mainView.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#555555" andAlpha:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -71,9 +71,9 @@ NSString *plistPath;
     }
     dictRoot = [NSDictionary dictionaryWithContentsOfFile:plistPath];
     UIImageView *indicator = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"indicator"]];
-	_pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake(20, 39, 280, 40)];//(self.view.bounds.size.width - (margin * 2.0f)+20)
-	_pickerView.backgroundColor   = [self colorFromHexString:@"#FFFFFF" andAlpha:NO];
-    _pickerView.layer.borderColor = [[self colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
+	_pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake(20, 100, 280, 40)];//(self.view.bounds.size.width - (margin * 2.0f)+20)
+	_pickerView.backgroundColor   = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
+    _pickerView.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#CCCCCC" andAlpha:NO] CGColor];
     _pickerView.layer.borderWidth = 1.0f;
 	_pickerView.selectedTextColor = [UIColor blackColor];
 	_pickerView.textColor   = [UIColor grayColor];
@@ -90,39 +90,21 @@ NSString *plistPath;
 
 }
 
-- (UIColor *)colorFromHexString:(NSString *)hexString andAlpha: (BOOL) alpha{
-    unsigned rgbValue = 0;
-    NSScanner *scanner = [NSScanner scannerWithString:hexString];
-    [scanner setScanLocation:1]; // bypass '#' character
-    [scanner scanHexInt:&rgbValue];
-    if(!alpha)
-        return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
-    else
-        return [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:0.9];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)dismissFirstResponder:(id)sender {
     [_descriptionText resignFirstResponder];
 }
-- (IBAction)returnView:(id)sender {
-    if([self.delegate respondsToSelector:@selector(returnToVacation)])
-    {
-        [self.delegate returnToVacation];
-    }
-}
 
 - (IBAction)initialDate:(id)sender {
     requestDialog = [[UIView alloc] initWithFrame:CGRectMake(10, 123, 300, 356)];
-    requestDialog.backgroundColor = [self colorFromHexString:@"#FFFFFF" andAlpha:YES];
+    requestDialog.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:YES];
     UIButton *dismiss_button = [[UIButton alloc] initWithFrame:CGRectMake(20, 277, 260, 40)];
-    dismiss_button.backgroundColor = [self colorFromHexString:@"#709D43" andAlpha:NO];
-    dismiss_button.layer.borderColor = [[self colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
+    dismiss_button.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    dismiss_button.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
     [dismiss_button.layer setBorderWidth:1.0f];
     [dismiss_button setTitle:@"Confirmar" forState:UIControlStateNormal];
     [dismiss_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -149,10 +131,10 @@ NSString *plistPath;
 - (IBAction)finalDate:(id)sender {
     NSLog(@"ENTRO");
     requestDialog = [[UIView alloc] initWithFrame:CGRectMake(10, 123, 300, 356)];
-    requestDialog.backgroundColor = [self colorFromHexString:@"#FFFFFF" andAlpha:YES];
+    requestDialog.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:YES];
     UIButton *dismiss_button = [[UIButton alloc] initWithFrame:CGRectMake(20, 277, 260, 40)];
-    dismiss_button.backgroundColor = [self colorFromHexString:@"#709D43" andAlpha:NO];
-    dismiss_button.layer.borderColor = [[self colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
+    dismiss_button.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    dismiss_button.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
     [dismiss_button.layer setBorderWidth:1.0f];
     [dismiss_button setTitle:@"Confirmar" forState:UIControlStateNormal];
     [dismiss_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -172,7 +154,7 @@ NSString *plistPath;
     loading.opaque = NO;
     UIActivityIndicatorView *spinning = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     spinning.frame = CGRectMake(110, 123, 50, 50);
-    spinning.backgroundColor = [self colorFromHexString:@"#000000" andAlpha:YES];
+    spinning.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:YES];
     spinning.layer.cornerRadius = 15;
     [spinning startAnimating];
     [loading addSubview:spinning];
@@ -255,14 +237,8 @@ NSString *plistPath;
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
-    //u need to change 0 to other value(,1,2,3) if u have more buttons.then u can check which button was pressed.
-    
     if (buttonIndex == 0) {
-        if([self.delegate respondsToSelector:@selector(clickedButtonAssistance)])
-        {
-            [self.delegate clickedButtonAssistance];
-        }
+        [self.navigationController popViewControllerAnimated:YES];
     }
 }
 

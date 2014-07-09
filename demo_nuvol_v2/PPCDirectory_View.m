@@ -18,8 +18,9 @@ UIView *loading;
 NSMutableDictionary *docDict;
 NSDictionary *dictRoot;
 NSString *plistPath;
-@implementation PPCDirectory_View
+UINavigationController *navController;
 
+@implementation PPCDirectory_View
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -34,7 +35,12 @@ NSString *plistPath;
     [super viewDidLoad];
     plistPath = [PPCCommon_Methods getPlistPath];
     dictRoot = [NSDictionary dictionaryWithContentsOfFile: plistPath];
-
+    UIImageView *logo_container = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 39, 39)];
+    logo_container.image = [UIImage imageNamed:@"logo_120x120.jpg"];
+    UIBarButtonItem *logo = [[UIBarButtonItem alloc] initWithImage:logo_container.image style:UIBarButtonItemStylePlain target:self action:@selector(returnToMenu:)];
+    [self.navigationItem setLeftBarButtonItem:logo];
+    [self.view addSubview:navController.view];
+    _mainView.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#555555" andAlpha:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -61,7 +67,6 @@ NSString *plistPath;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"APAREZCO");
     loading = [PPCCommon_Methods generateLoadingView:CGRectMake(80, 166, 160, 160) andIndicatorDimensions:CGRectMake(61.5, 61.5, 37, 37) andAlpha:NO];
     [self.view addSubview:loading];
     dispatch_queue_t imageQueue = dispatch_queue_create("Image Queue",NULL);
@@ -148,7 +153,7 @@ NSString *plistPath;
         cell.delegate = self;
         cell.cardImage.image = [UIImage imageWithContentsOfFile: [PPCCommon_Methods getPathToImage:[auxDict objectForKey:@"foto"]]];
         cell.cardImage.contentMode = UIViewContentModeScaleAspectFit;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+        /*UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                    0,
                                                                    500,
                                                                    25)];
@@ -159,11 +164,11 @@ NSString *plistPath;
         label.backgroundColor = [UIColor whiteColor];
         label.textColor = [UIColor redColor];
         CGSize tamano = [label.text sizeWithAttributes:@{NSFontAttributeName:label.font}];
-        label.frame = CGRectMake(0, 0, tamano.width, tamano.height);
+        label.frame = CGRectMake(0, 0, tamano.width, tamano.height);*/
         //[cell addSubview:label];
-        [cell.scrollContent addSubview:label];
-        [cell.scrollContent setContentSize:CGSizeMake(tamano.width, tamano.height)];
-        //[PPCCommon_Methods setTextView:cell.cardName andDict:auxDict andKey:@"nombre" andTextColor:@"#9AB4CB" andIsBold:false];
+        //[cell.scrollContent addSubview:label];
+        //[cell.scrollContent setContentSize:CGSizeMake(tamano.width, tamano.height)];
+        [PPCCommon_Methods setTextView:cell.cardName andDict:auxDict andKey:@"nombre" andTextColor:@"#9AB4CB" andIsBold:false];
         [PPCCommon_Methods setTextView:cell.jobPosition andDict:auxDict andKey:@"puesto" andTextColor:@"#000000" andIsBold:true];
         [cell.layer setMasksToBounds:YES];
         cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
@@ -192,10 +197,10 @@ NSString *plistPath;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSDictionary *auxDict = [contactArray objectAtIndex: indexPath.row/2];
-    if([self.delegate respondsToSelector:@selector(requestPersonDetail:)])
-    {
-        [self.delegate requestPersonDetail:auxDict];
-    }
+    self.detailView = [[PPCDetail_View alloc] initWithNibName:@"PPCDetail_View" bundle:nil];
+    self.detailView.view.frame = CGRectMake(0, 0, 320, 492);
+    self.detailView.personDetails = auxDict;
+    [self.navigationController pushViewController:self.detailView animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -203,6 +208,13 @@ NSString *plistPath;
         return 90;
     else
         return 3;
+}
+
+- (void)returnToMenu:(id)sender {
+    if([self.delegate respondsToSelector:@selector(openMenu:)])
+    {
+        [self.delegate openMenu: self.navigationController];
+    }
 }
 
 @end

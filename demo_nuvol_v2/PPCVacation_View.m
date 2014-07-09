@@ -26,6 +26,7 @@ NSMutableArray *final_titles;
 NSMutableArray *index_number;
 NSString *plistPath;
 NSDictionary *dictRoot;
+UINavigationController *navController;
 
 @implementation PPCVacation_View
 
@@ -40,6 +41,12 @@ NSDictionary *dictRoot;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    UIImageView *logo_container = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 39, 39)];
+    logo_container.image = [UIImage imageNamed:@"logo_120x120.jpg"];
+    UIBarButtonItem *logo = [[UIBarButtonItem alloc] initWithImage:logo_container.image style:UIBarButtonItemStylePlain target:self action:@selector(returnToMenu:)];
+    [self.navigationItem setLeftBarButtonItem:logo];
+    [self.view addSubview:navController.view];
+    _mainView.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#555555" andAlpha:NO];
     titles = [[NSMutableArray alloc] initWithObjects:@"Vacaciones",@"Permiso", @"Falta",@"Incapacidad",@"Permiso Especial", nil];
 }
 
@@ -69,6 +76,8 @@ NSDictionary *dictRoot;
             }
         });
     }];
+    _vacationTable.backgroundColor = [UIColor clearColor];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,10 +91,15 @@ NSDictionary *dictRoot;
 }
 
 - (IBAction)addLayOffRequest:(id)sender {
-    if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
+   /* if([self.delegate respondsToSelector:@selector(requestAssitanceView:andIndexes:)])
     {
         [self.delegate requestAssitanceView:final_titles andIndexes:index_number];
-    }
+    }*/
+    self.assistanceView = [[PPCAssistanceRequest alloc] initWithNibName:@"PPCAssistanceRequest" bundle:nil];
+    self.assistanceView.view.frame = CGRectMake(0, 44, 320, 492);
+    self.assistanceView.types_titles = [final_titles mutableCopy];
+    self.assistanceView.indexes = [index_number mutableCopy];
+    [self.navigationController pushViewController:self.assistanceView animated:YES];
 }
 
 -(void)addRequest{
@@ -139,88 +153,68 @@ NSDictionary *dictRoot;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:    (NSInteger)section
 {
-    return [vacationArray count]*2-1;
-}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row % 2 ==0)
-        return 120;
-    else
-        return 3;
+    return [vacationArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *simpleTableIdentifier = @"SimpleTableItem";
-    static NSString *simpleTableIdentifierSpacer = @"SpacerItem";
-    if(indexPath.row % 2 == 0){
-        PPCVacationCell *cell = (PPCVacationCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCVacationCell" owner:self options:nil];
-            for (id eachObject in nib) {
-                if ([eachObject isKindOfClass:[UITableViewCell class]]) {
-                    cell = eachObject;
-                    break;
-                }
-                else{
-                    NSLog(@"NO");
-                }
+    PPCVacationCell *cell = (PPCVacationCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if (cell == nil)
+    {
+        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCVacationCell" owner:self options:nil];
+        for (id eachObject in nib) {
+            if ([eachObject isKindOfClass:[UITableViewCell class]]) {
+                cell = eachObject;
+                break;
+            }
+            else{
+                NSLog(@"NO");
             }
         }
-        NSDictionary *auxDict = [vacationArray objectAtIndex: indexPath.row/2];
-        [self setLabelDimension:cell.initialDate andDict:auxDict andKey:@"fecha_ini" andTextColor:@"#000000" andWidth: 80 andIsBold:false];
-        [self setLabelDimension:cell.finalDate andDict:auxDict andKey:@"fecha_fin" andTextColor:@"#000000" andWidth: 80
+    }
+    NSDictionary *auxDict = [vacationArray objectAtIndex: indexPath.row/2];
+    [self setLabelDimension:cell.initialDate andDict:auxDict andKey:@"fecha_ini" andTextColor:@"#000000" andWidth: 80 andIsBold:false];
+    [self setLabelDimension:cell.finalDate andDict:auxDict andKey:@"fecha_fin" andTextColor:@"#000000" andWidth: 80
             andIsBold:false];
-        [self setLabelDimension:cell.type andDict:auxDict andKey:@"tipo" andTextColor:@"#515967" andWidth: 210  andIsBold:true];
-        cell.description.text = [auxDict objectForKey:@"descripcion"];
-        cell.description.textColor = [PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:NO];
-        cell.description.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:13];
-        cell.description.textAlignment = NSTextAlignmentLeft;
-        [self setLabelDimension:cell.status andDict:auxDict andKey:@"status" andTextColor:@"#FF8000" andWidth: 90 andIsBold:false];
-        [cell.layer setMasksToBounds:YES];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
-        return cell;
-    }
-    else{
-        PPCCustom_Cell_Spacer *cell = (PPCCustom_Cell_Spacer *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifierSpacer];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PPCCustom_Cell_Spacer" owner:self options:nil];
-            for (id eachObject in nib) {
-                if ([eachObject isKindOfClass:[UITableViewCell class]]) {
-                    cell = eachObject;
-                    break;
-                }
-                else{
-                    NSLog(@"NO");
-                }
-            }
-        }
-        cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#5EAEEA" andAlpha:NO];
-        return cell;
-    }
+    [self setLabelDimension:cell.type andDict:auxDict andKey:@"tipo" andTextColor:@"#515967" andWidth: 210  andIsBold:true];
+    cell.description.text = [auxDict objectForKey:@"descripcion"];
+    cell.description.textColor = [PPCCommon_Methods colorFromHexString:@"#000000" andAlpha:NO];
+    cell.description.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:13];
+    cell.description.textAlignment = NSTextAlignmentLeft;
+    [self setLabelDimension:cell.status andDict:auxDict andKey:@"status" andTextColor:@"#FF8000" andWidth: 90 andIsBold:false];
+    [cell.layer setMasksToBounds:YES];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#FFFFFF" andAlpha:NO];
+    return cell;
     
 }
 
-#pragma mark - HorizontalPickerView DataSource Methods
-- (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
-    return [final_titles count];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIView *whiteRoundedCornerView = [[UIView alloc] initWithFrame:CGRectMake(0,0,304,120)];
+    whiteRoundedCornerView.backgroundColor = [UIColor whiteColor];
+    whiteRoundedCornerView.layer.masksToBounds = NO;
+    //whiteRoundedCornerView.layer.cornerRadius = 3.0;
+    whiteRoundedCornerView.layer.shadowOffset = CGSizeMake(-1, 1);
+    whiteRoundedCornerView.layer.shadowOpacity = 0.5;
+    whiteRoundedCornerView.tag = 10;
+    if(![cell.contentView viewWithTag:10]){
+        [cell.contentView addSubview:whiteRoundedCornerView];
+        [cell.contentView sendSubviewToBack:whiteRoundedCornerView];
+    }
+    cell.backgroundColor = [UIColor clearColor];
 }
 
-#pragma mark - HorizontalPickerView Delegate Methods
-- (NSString *)horizontalPickerView:(V8HorizontalPickerView *)picker titleForElementAtIndex:(NSInteger)index {
-    return [final_titles objectAtIndex:index];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 140.0;
 }
 
-- (NSInteger) horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
-	CGSize constrainedSize = CGSizeMake(MAXFLOAT, MAXFLOAT);
-	NSString *text = [final_titles objectAtIndex:index];
-	CGRect textSize = [text boundingRectWithSize: constrainedSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{ NSFontAttributeName:[UIFont boldSystemFontOfSize:14.0f]} context:nil];
-	return textSize.size.width + 40.0f; // 20px padding on each side
+- (void)returnToMenu:(id)sender {
+    if([self.delegate respondsToSelector:@selector(openMenu:)])
+    {
+        [self.delegate openMenu: self.navigationController];
+    }
 }
-
-
 @end

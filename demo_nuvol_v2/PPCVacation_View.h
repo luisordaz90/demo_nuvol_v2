@@ -8,19 +8,21 @@
 
 #import <UIKit/UIKit.h>
 #import "iOSRequest.h"
-#import "V8HorizontalPickerView.h"
 #import "PPCCommon_Methods.h"
 #import "PPCVacationCell.h"
-#import "PPCCustom_Cell_Spacer.h"
+#import "PPCAssistanceRequest.h"
 
 @protocol VacationProtocol <NSObject>
--(void)requestAssitanceView: (NSMutableArray *) types andIndexes: (NSMutableArray *) index_number;
+    -(void)openMenu: (UIViewController *) view;
 @end
-@interface PPCVacation_View : UIViewController <UITableViewDelegate, UITableViewDataSource,V8HorizontalPickerViewDelegate, V8HorizontalPickerViewDataSource>
+
+@interface PPCVacation_View : UIViewController <UITableViewDelegate, UITableViewDataSource,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *vacationTable;
 - (IBAction)addLayOffRequest:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *requestButton;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (nonatomic, strong) V8HorizontalPickerView *pickerView;
+@property (strong,nonatomic) PPCAssistanceRequest *assistanceView;
 @property (nonatomic, retain) UIPickerView *languageSelect;
 @property (nonatomic, retain)  NSMutableArray *pickerData;
 @property (weak, nonatomic) id<VacationProtocol> delegate;

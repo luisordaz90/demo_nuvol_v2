@@ -8,16 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import "PPCWelcomeCell.h"
-#import "PPCCustom_Cell_Spacer.h"
 #import "iOSRequest.h"
 #import "PPCCommon_Methods.h"
+#import "PPCNotification_View.h"
 
 @protocol WelcomeProtocol <NSObject>
-    -(void)addNotificationView: (NSMutableArray *) notifications;
+    -(void)openMenu: (UIViewController *) view;
 @end
-@interface PPCWelcome_View : UIViewController <UITableViewDelegate, UITableViewDataSource, WelcomeCellProtocol>
+
+@interface PPCWelcome_View : UIViewController <UITableViewDelegate, UITableViewDataSource, WelcomeCellProtocol,UINavigationControllerDelegate, UIScrollViewDelegate>
 @property (strong,nonatomic) NSMutableArray *arrayNotifications;
-@property (weak, nonatomic) IBOutlet UITableView *tableVista;
+@property (weak, nonatomic) IBOutlet UITableView *welcomeTable;
+
+@property (strong,nonatomic) PPCNotification_View *notificationView;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) id<WelcomeProtocol> delegate;
 -(void)dismissVariables;
 

@@ -221,16 +221,16 @@ float quantity = 320/5;
         [self.delegate welcomeTabClick];
     }
     if (value==2) {
-        [self.delegate vacationTabClick];
+        [self.delegate attendanceTabClick];
       }
     if (value==3) {
         [self.delegate directoryTabClick];
     }
     if (value==4) {
-        [self.delegate infoCenterTabClick];
+        [self.delegate payrollTabClick];
     }
     if (value==5) {
-        [self.delegate preferencesTabClick];
+        [self.delegate configurationTabClick];
     }
 }
 

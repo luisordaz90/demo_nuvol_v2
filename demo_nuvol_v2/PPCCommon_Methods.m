@@ -106,7 +106,7 @@
     NSString *text = textView.text;
     //text = [text stringByReplacingCharactersInRange:range withString:string];
     CGSize textSize = [text sizeWithAttributes:@{NSFontAttributeName:textView.font}];
-    NSLog(@"TAMANIO: %f<%f", textSize.width, textView.bounds.size.width);
+    //NSLog(@"TAMANIO: %f<%f", textSize.width, textView.bounds.size.width);
     return (textSize.width < textView.bounds.size.width) ? YES : NO;
 }
 

@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PPCCommon_Methods.h"
+
 @protocol ConfigurationProtocol <NSObject>
     -(void)logout;
 @end
+
 @interface PPCConfiguration_View : UIViewController
-@property (weak, nonatomic) IBOutlet UIButton *dismiss_button;
-- (IBAction)logoutButton:(id)sender;
 @property (weak, nonatomic) id<ConfigurationProtocol> delegate;
 @end

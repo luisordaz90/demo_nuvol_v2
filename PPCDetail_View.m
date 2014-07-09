@@ -27,7 +27,7 @@ UIView *loading;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _backButton.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
+    /*_backButton.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO];
     _backButton.layer.borderColor = [[PPCCommon_Methods colorFromHexString:@"#709D43" andAlpha:NO] CGColor];
     [_backButton.layer setBorderWidth:1.0f];
     [_backButton setTitle:@"Regresar" forState:UIControlStateNormal];
@@ -36,19 +36,20 @@ UIView *loading;
     _backButton.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
     _backButton.layer.sublayerTransform = CATransform3DMakeTranslation(1, 0, 0);
     [_backButton addTarget:self action:@selector(changeBackground:) forControlEvents:UIControlStateHighlighted];
-    _backButton.hidden = YES;
+    _backButton.hidden = YES;*/
+    _viewContainer.backgroundColor = [PPCCommon_Methods colorFromHexString:@"#555555" andAlpha:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    _viewContainer.hidden = YES;
+   /*_viewContainer.hidden = YES;
     loading = [PPCCommon_Methods generateLoadingView:CGRectMake(0, 114, 320, 366) andIndicatorDimensions:CGRectMake(141.5, 164.5, 37, 37) andAlpha: NO];
-    [self.view addSubview:loading];
+    [self.view addSubview:loading];*/
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [loading removeFromSuperview];
+    //[loading removeFromSuperview];
     _viewContainer.hidden = NO;
-    _backButton.hidden = NO;
+    //_backButton.hidden = NO;
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
     NSString *stringAux = [_personDetails objectForKey:@"foto"];

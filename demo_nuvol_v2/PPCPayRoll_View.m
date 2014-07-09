@@ -14,6 +14,7 @@
 
 NSDictionary *dictRoot;
 NSMutableArray *receipts;
+UINavigationController *navController;
 
 @implementation PPCPayRoll_View
 
@@ -29,8 +30,13 @@ NSMutableArray *receipts;
 
 - (void)viewDidLoad
 {
-    self.automaticallyAdjustsScrollViewInsets = NO;
     [super viewDidLoad];
+    UIImageView *logo_container = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 39, 39)];
+    logo_container.image = [UIImage imageNamed:@"logo_120x120.jpg"];
+    UIBarButtonItem *logo = [[UIBarButtonItem alloc] initWithImage:logo_container.image style:UIBarButtonItemStylePlain target:self action:@selector(returnToMenu:)];
+    [self.navigationItem setLeftBarButtonItem:logo];
+    [self.view addSubview:navController.view];
+    //self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -56,8 +62,8 @@ NSMutableArray *receipts;
             }
             
             NSLog(@"%lu",(unsigned long)[receipts count]);
-            [_payrollTable setShowsHorizontalScrollIndicator:NO];
-            [_payrollTable setShowsVerticalScrollIndicator:NO];
+            //[_payrollTable setShowsHorizontalScrollIndicator:NO];
+            //[_payrollTable setShowsVerticalScrollIndicator:NO];
         });
     }];
 }
@@ -143,14 +149,21 @@ NSMutableArray *receipts;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dict = [receipts objectAtIndex:indexPath.row];
     NSString *period = [@"idperiodo=" stringByAppendingString:[dict objectForKey:@"recibo"]];
-    if([self.delegate respondsToSelector:@selector(requestPayrollDetail:)])
-    {
-        [self.delegate requestPayrollDetail: period];
-    }
+    self.payrollDetailView = [[PPCPayrollDetail alloc] initWithNibName:@"PPCPayrollDetail" bundle:nil];
+    self.payrollDetailView.view.frame = CGRectMake(0, 0, 320, 492);
+    self.payrollDetailView.period = period;
+    [self.navigationController pushViewController:self.payrollDetailView animated:YES];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100;
+}
+
+- (void)returnToMenu:(id)sender {
+    if([self.delegate respondsToSelector:@selector(openMenu:)])
+    {
+        [self.delegate openMenu: self.navigationController];
+    }
 }
 
 @end
